@@ -1,0 +1,30 @@
+@import (reference) './constant.less';
+@import './icon.less';
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  color: @black_3;
+}
+
+.main_box_shadow {
+  box-shadow: 0 2px 5px 0 @white_3;
+}
+
+.main_border {
+  border: 1px solid @white_3;
+}
+// animation of song
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fade_out {
+  100% {
+    opacity: 0;
+    display: none;
+    width: 0;
+  }
+}
