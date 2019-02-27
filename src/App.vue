@@ -2,21 +2,21 @@
   <div id="app">
     <Header/>
     <Carrousel/>
-    <!-- <Echart/> -->
+    <Echart/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header/Header'
 import Carrousel from './components/Carrousel/Carrousel'
-// import Echart from './components/Echart/Echart'
+import Echart from './components/Echart/Echart'
 
 export default {
 	name: 'app',
 	components: {
 		Header,
-		Carrousel
-		// Echart
+		Carrousel,
+		Echart
 	}
 }
 </script>

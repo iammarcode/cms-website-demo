@@ -37,6 +37,13 @@
         </svg>
       </a>
     </div>
+    <div class="header-login">
+      <a href="https://www.instagram.com" class="header-login-link" target="blank">
+        <svg class="icon icon-login" aria-hidden="true">
+          <use xlink:href="#icon-login"></use>
+        </svg>
+      </a>
+    </div>
   </header>
 </template>
 
@@ -99,6 +106,18 @@ export default {
 	}
 	.header-input {
 		flex: 1 1;
+		display: flex;
+		line-height: 60px;
+		// flex-direction: column;
+		justify-content: space-around;
+		.el-autocomplete.header-input-com {
+			.el-input {
+				font-size: 14px;
+				.el-input__inner {
+					height: 30px;
+				}
+			}
+		}
 	}
 	.header-concat {
 		flex: 0 1;
@@ -113,6 +132,21 @@ export default {
 			justify-content: center;
 			padding: 5px;
 			.icon {
+				font-size: 18px;
+			}
+		}
+	}
+	.header-login {
+		width: 100px;
+		height: 100%;
+		line-height: @header_height;
+		display: flex;
+		justify-content: center;
+		.header-login-link {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			.icon-login {
 				font-size: 18px;
 			}
 		}
