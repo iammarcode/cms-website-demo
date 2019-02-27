@@ -15,7 +15,7 @@ var downColor = '#00da3c'
 var downBorderColor = '#008F28'
 
 import echarts from 'echarts'
-import { Promise } from 'q'
+// import { Promise } from 'q'
 
 // splitData
 function splitData(rawData) {

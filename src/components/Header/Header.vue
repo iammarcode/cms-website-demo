@@ -3,53 +3,30 @@
     <div class="header-logo">
       <img src="../../assets/images/logo.png" class="header-logo-img">
     </div>
+    <!-- Nav -->
     <div class="header-nav">
       <Menu
         v-for="(item, index) in navList"
         :key="index"
         :navItem="item"
         :itemIndex="index"
-        class="header-nav-menu"
+        class="header-nav-item"
       />
     </div>
-    <div class="header-input">
-      <Input/>
-    </div>
-    <div class="header-concat">
-      <a href="https://www.instagram.com" class="header-concat-link" target="blank">
-        <svg class="icon icon-ins" aria-hidden="true">
-          <use xlink:href="#icon-ins"></use>
-        </svg>
-      </a>
-      <a href="https://www.facebook.com" class="header-concat-link" target="blank">
-        <svg class="icon icon-facebook" aria-hidden="true">
-          <use xlink:href="#icon-facebook"></use>
-        </svg>
-      </a>
-      <a href="https://web.wechat.com" class="header-concat-link" target="blank">
-        <svg class="icon icon-wechat" aria-hidden="true">
-          <use xlink:href="#icon-wechat"></use>
-        </svg>
-      </a>
-      <a href="https://twitter.com/?lang=zh-cn" class="header-concat-link" target="blank">
-        <svg class="icon icon-twitter" aria-hidden="true">
-          <use xlink:href="#icon-twitter"></use>
-        </svg>
-      </a>
-    </div>
-    <div class="header-login">
-      <a href="https://www.instagram.com" class="header-login-link" target="blank">
-        <svg class="icon icon-login" aria-hidden="true">
-          <use xlink:href="#icon-login"></use>
-        </svg>
-      </a>
-    </div>
+    <!-- Input -->
+    <Input class="header-input"/>
+    <!-- Concat -->
+    <Concat class="header-concat"/>
+    <!-- Login -->
+    <Login class="header-login"/>
   </header>
 </template>
 
 <script>
 import Menu from '../public/Menu'
 import Input from '../public/Input'
+import Concat from '../public/Concat'
+import Login from '../../components/Login/Login'
 export default {
 	name: 'Header',
 	data() {
@@ -64,7 +41,9 @@ export default {
 	},
 	components: {
 		Menu,
-		Input
+		Input,
+		Concat,
+		Login
 	},
 	methods: {
 		getHeader() {
@@ -84,8 +63,8 @@ export default {
 @import (reference) '../../../src/assets/css/constant.less';
 .header {
 	display: flex;
-	height: @header_height;
-	border-bottom: 1px solid #e6e6e6;
+	background-color: #fff;
+	border-bottom: 1px solid #b6b4b6;
 	.header-logo {
 		flex: 0 1;
 		height: 100%;
@@ -101,14 +80,13 @@ export default {
 	.header-nav {
 		flex: 1 1;
 		display: flex;
-		flex-flow: row nowrap;
-		margin: 0 40px;
+		.menu.header-nav-item {
+		}
 	}
 	.header-input {
 		flex: 1 1;
 		display: flex;
 		line-height: 60px;
-		// flex-direction: column;
 		justify-content: space-around;
 		.el-autocomplete.header-input-com {
 			.el-input {
@@ -120,36 +98,11 @@ export default {
 		}
 	}
 	.header-concat {
-		flex: 0 1;
-		height: 60px;
-		line-height: 60px;
-		display: flex;
-		// justify-content: space-between;
-		a.header-concat-link {
-			flex: 1 1;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			padding: 5px;
-			.icon {
-				font-size: 18px;
-			}
-		}
 	}
 	.header-login {
 		width: 100px;
 		height: 100%;
 		line-height: @header_height;
-		display: flex;
-		justify-content: center;
-		.header-login-link {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			.icon-login {
-				font-size: 18px;
-			}
-		}
 	}
 }
 </style>

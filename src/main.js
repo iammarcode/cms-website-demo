@@ -3,6 +3,9 @@ import App from './App.vue'
 // import api from './api'  //TODO: solve cros access
 import api from 'axios'
 
+// router
+import router from './router'
+
 // Element UI
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -21,9 +24,9 @@ import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper /* { default global options } */)
 
 // Echarts
-import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
-Vue.component('Chart', ECharts)
-import 'echarts-gl'
+// import ECharts from 'vue-echarts' // refers to components/ECharts.vue in webpack
+// Vue.component('Chart', ECharts)
+// import 'echarts-gl'
 // import ECharts modules manually to reduce bundle size
 // import 'echarts/lib/chart/bar'
 // import 'echarts/lib/component/tooltip'
@@ -40,11 +43,13 @@ Vue.prototype.$api = api
 
 new Vue({
 	el: '#app',
+	router,
 	render: h => h(App)
 })
 
 Vue.config.productionTip = false
 
 new Vue({
+	router,
 	render: h => h(App)
 }).$mount('#app')

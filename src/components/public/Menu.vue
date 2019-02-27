@@ -30,7 +30,6 @@ export default {
 
 <style lang='less' scoped>
 .menu {
-	height: 100%;
 	.menu-item {
 		height: 100%;
 		.menu-item-btn.el-button.menu-item-btn.el-button--primary.el-dropdown-selfdefine {

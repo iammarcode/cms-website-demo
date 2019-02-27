@@ -1,6 +1,7 @@
 <template>
-  <el-dropdown>
-    <el-button type="primary">更多菜单
+  <el-dropdown class="dropdown">
+    <el-button type="primary">
+      更多菜单
       <i class="el-icon-arrow-down el-icon--right"></i>
     </el-button>
     <el-dropdown-menu slot="dropdown">
@@ -24,4 +25,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.dropdown {
+	height: 100px;
+}
 </style>
