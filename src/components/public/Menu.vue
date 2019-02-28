@@ -6,7 +6,9 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
       </el-button>
       <el-dropdown-menu slot="dropdown" class="menu-item-dropdown">
-        <el-dropdown-item v-for="(item, index) in navItem.list" :key="index">{{item}}</el-dropdown-item>
+        <el-dropdown-item v-for="(item, index) in navItem.list" :key="index" @command="handleClick">
+          <router-link :to="item.url">{{item.name}}</router-link>
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -24,7 +26,11 @@ export default {
 			default: 1
 		}
 	},
-	methods: {}
+	methods: {
+		handleClick(index) {
+			console.log(index)
+		}
+	}
 }
 </script>
 

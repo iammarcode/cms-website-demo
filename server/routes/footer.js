@@ -1,12 +1,12 @@
 var express = require('express')
 var router = express.Router()
 var mongoose = require('mongoose')
-var Carrousel = require('../models/Carrousel')
+var Footer = require('../models/Footer')
 
 var options = { keepAlive: 120 }
 mongoose.connect('mongodb://127.0.0.1:27017/finance_web', options).then(
 	() => {
-		console.log('DB/carrousel Connected Successfully')
+		console.log('DB/footer Connected Successfully')
 	},
 	err => {
 		console.error(err.message)
@@ -15,7 +15,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/finance_web', options).then(
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	Carrousel.find({}, (err, carrousel) => {
+	Footer.find({}, (err, footer) => {
 		if (err) {
 			res.json({
 				status: 0,
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 			res.json({
 				status: 1,
 				message: '',
-				data: carrousel[0]
+				data: footer[0]
 			})
 		}
 	})

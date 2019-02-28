@@ -13,10 +13,8 @@ var upColor = '#ec0000'
 var upBorderColor = '#8A0000'
 var downColor = '#00da3c'
 var downBorderColor = '#008F28'
-
 import echarts from 'echarts'
 // import { Promise } from 'q'
-
 // splitData
 function splitData(rawData) {
 	var categoryData = []
@@ -27,7 +25,6 @@ function splitData(rawData) {
 	}
 	return { categoryData: categoryData, values: values }
 }
-
 export default {
 	data() {
 		return {
@@ -242,6 +239,7 @@ export default {
 	methods: {
 		setEchartOption() {
 			// data0
+			// console.log(this.initData)
 			var data0 = splitData(this.initData)
 			// set echartOption data
 			this.echartOption.xAxis.data = data0.categoryData
@@ -271,7 +269,7 @@ export default {
 		getEchartData() {
 			new Promise((resolve, reject) => {
 				this.$api
-					.get('/echart')
+					.get('/api/stock/')
 					.then(result => {
 						resolve(result)
 					})
@@ -280,13 +278,13 @@ export default {
 					})
 			})
 				.then(result => {
-					this.initData = result.data.data.compositeIndex
-					this.setEchartOption()
-					this.echartOption.title.text = result.data.data.text // test
 					this.tips = result.data.data.tips // tips
 					this.statement01 = result.data.data.statement01 // statement01
 					this.statement02 = result.data.data.statement02 // statement02
-					// console.log(this.initData)
+					this.initData = result.data.data.compositeIndex
+
+					this.setEchartOption()
+					this.echartOption.title.text = result.data.data.text // test
 					this.myChart = echarts.init(document.getElementById('myChart'))
 					this.myChart.setOption(this.echartOption, true)
 				})
@@ -305,11 +303,9 @@ export default {
 .chart-container {
 	// border: 1px solid #000;
 	margin: 20px auto 10px auto;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	#myChart {
 		width: 80%;
 		height: 500px;

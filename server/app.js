@@ -8,8 +8,10 @@ var logger = require('morgan')
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 var headerRouter = require('./routes/header')
-var carrouselRouter = require('./routes/carrousel')
-var echartRouter = require('./routes/echart')
+var carouselRouter = require('./routes/carousel')
+var stockRouter = require('./routes/stock')
+var newsRouter = require('./routes/new')
+var footerRouter = require('./routes/footer')
 
 var app = express()
 
@@ -30,8 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/header', headerRouter)
-app.use('/carrousel', carrouselRouter)
-app.use('/echart', echartRouter)
+app.use('/carousel', carouselRouter)
+app.use('/stock', stockRouter)
+app.use('/new', newsRouter)
+app.use('/footer', footerRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

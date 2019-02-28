@@ -1,9 +1,14 @@
 <template>
-  <el-carousel :interval="5000" arrow="hover" :height="'450px'" class="carrousel">
-    <el-carousel-item v-for="(item, index) in carrouselList" :key="index" class="carrousel-item">
-      <div class="carrousel-item-intro">
-        <span class="carrousel-intro-title">{{item.title}}</span>
-        <span class="carrousel-intro-detail">{{item.detail}}</span>
+  <el-carousel :interval="5000" arrow="hover" :height="'450px'" class="carousel">
+    <el-carousel-item
+      v-for="(item, index) in carouselList"
+      :key="index"
+      class="carousel-item"
+      :style="backgroundImage + item.image"
+    >
+      <div class="carousel-item-intro">
+        <span class="carousel-intro-title">{{item.title}}</span>
+        <span class="carousel-intro-detail">{{item.detail}}</span>
       </div>
     </el-carousel-item>
   </el-carousel>
@@ -11,23 +16,23 @@
 
 <script>
 export default {
-	name: 'carrousel',
+	name: 'carousel',
 	data() {
 		return {
-			carrouselList: []
+			carouselList: []
 		}
 	},
 	computed: {
 		backgroundImage() {
-			return `background-image: url(../../assets/images/carrousel01.png)`
+			return `background-image: url('/static/images/`
 		}
 	},
 	methods: {
-		getCarrousel() {
+		getCarousel() {
 			this.$api
-				.get('/carrousel')
+				.get('/api/carousel')
 				.then(result => {
-					this.carrouselList = result.data.data.carrousel
+					this.carouselList = result.data.data.carousel
 				})
 				.catch(err => {
 					console.log(err)
@@ -35,7 +40,7 @@ export default {
 		}
 	},
 	mounted() {
-		this.getCarrousel()
+		this.getCarousel()
 	}
 }
 </script>
@@ -50,20 +55,19 @@ export default {
 }
 
 .el-carousel__item {
-	background-image: url('../../assets/images/carrousel03.png');
 	background-size: cover;
-	.carrousel-item-intro {
+	.carousel-item-intro {
 		height: 100%;
 		width: 30%;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
-		.carrousel-intro-title {
+		.carousel-intro-title {
 			font-size: 30px;
 			color: aliceblue;
 			padding: 20px 0;
 		}
-		.carrousel-intro-detail {
+		.carousel-intro-detail {
 			font-size: 20px;
 			color: aliceblue;
 			padding: 10px 0 120px 0;

@@ -13,7 +13,7 @@ axios.defaults.headers.post['Content-Type'] =
 Vue.prototype.$static = ''
 
 // 配置接口地址
-axios.defaults.baseURL = 'http://127.0.0.1:3000'
+axios.defaults.baseURL = 'http://127.0.0.1:3002'
 var loadingInstance
 // POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use(

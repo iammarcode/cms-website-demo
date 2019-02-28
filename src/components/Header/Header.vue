@@ -1,8 +1,8 @@
 <template>
   <header class="header">
-    <div class="header-logo">
-      <img src="../../assets/images/logo.png" class="header-logo-img">
-    </div>
+    <router-link to="/" class="header-logo">
+      <img :src="'/static/images/' + headerData.logo" class="header-logo-img">
+    </router-link>
     <!-- Nav -->
     <div class="header-nav">
       <Menu
@@ -17,8 +17,8 @@
     <Input class="header-input"/>
     <!-- Concat -->
     <Concat class="header-concat"/>
-    <!-- Login -->
-    <Login class="header-login"/>
+    <!-- Has Logged/ To Register -->
+    <LoginButton class="header-login"/>
   </header>
 </template>
 
@@ -26,7 +26,7 @@
 import Menu from '../public/Menu'
 import Input from '../public/Input'
 import Concat from '../public/Concat'
-import Login from '../../components/Login/Login'
+import LoginButton from '../../components/Login/LoginButton'
 export default {
 	name: 'Header',
 	data() {
@@ -43,11 +43,11 @@ export default {
 		Menu,
 		Input,
 		Concat,
-		Login
+		LoginButton
 	},
 	methods: {
 		getHeader() {
-			this.$api.get('/header').then(data => {
+			this.$api.get('/api/header').then(data => {
 				this.headerData = data.data.data
 			})
 		}
@@ -63,8 +63,6 @@ export default {
 @import (reference) '../../../src/assets/css/constant.less';
 .header {
 	display: flex;
-	background-color: #fff;
-	border-bottom: 1px solid #b6b4b6;
 	.header-logo {
 		flex: 0 1;
 		height: 100%;

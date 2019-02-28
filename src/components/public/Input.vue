@@ -46,7 +46,7 @@ export default {
 			console.log(item)
 		},
 		getInputData() {
-			this.$api.get('/header').then(data => {
+			this.$api.get('/api/header').then(data => {
 				this.restaurants = data.data.data.inputData
 			})
 		}

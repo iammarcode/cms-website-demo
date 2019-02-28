@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-var carrouselSchema = new Schema({
-	carrousel: [
+var carouselSchema = new Schema({
+	carousel: [
 		{
 			image: String,
 			title: String,
@@ -11,4 +11,4 @@ var carrouselSchema = new Schema({
 	]
 })
 
-module.exports = mongoose.model('Carrousel', carrouselSchema)
+module.exports = mongoose.model('Carousel', carouselSchema)

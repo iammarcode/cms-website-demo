@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import api from './api'  //TODO: solve cros access
+// import api from './api' //TODO: solve cros access
 import api from 'axios'
 
 // router
@@ -9,6 +9,7 @@ import router from './router'
 // Element UI
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
 Vue.use(ElementUI)
 
 // css

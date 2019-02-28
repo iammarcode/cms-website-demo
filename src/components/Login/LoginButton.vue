@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <a href="https://www.instagram.com" class="login-link" target="blank">
+    <a href="/tonghai/login" class="login-link">
       <svg class="icon icon-login" aria-hidden="true">
         <use xlink:href="#icon-login"></use>
       </svg>
@@ -10,6 +10,7 @@
 
 <script>
 export default {
+	name: 'loginButton',
 	data() {
 		return {}
 	},

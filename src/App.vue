@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header class="app-header"/>
-    <router-view/>
+    <router-view class="app-content"/>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ export default {
 	height: 100%;
 	position: relative;
 	box-sizing: border-box;
+	overflow-x: hidden;
+	// background-color: #fafafa;
+
 	.app-header {
 		height: @header_height;
 		width: 100%;
@@ -34,6 +37,12 @@ export default {
 		left: 0;
 		top: 0;
 		z-index: 999;
+		background-color: #fff;
+		box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	}
+	.app-content {
+		background-color: #fafafa;
+		min-height: 700px;
 	}
 }
 </style>

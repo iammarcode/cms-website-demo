@@ -1,21 +1,16 @@
 <template>
   <div class="home">
-    <Carrousel/>
-    <Echart/>
-    <News/>
+    <router-view></router-view>
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Carrousel from '../components/Carrousel/Carrousel'
-import Echart from '../components/Echart/Echart'
-import News from '../components/News/News'
+import Footer from './../components/Footer/Footer'
 export default {
 	name: 'home',
 	components: {
-		Carrousel,
-		Echart,
-		News
+		Footer
 	},
 	data() {
 		return {}

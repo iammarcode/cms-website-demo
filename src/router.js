@@ -7,20 +7,35 @@ Vue.use(Router)
 export default new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
+
 	routes: [
 		{
 			path: '/',
 			name: 'home',
-			component: Home
-		},
-		{
-			path: '/about',
-			name: 'about'
-			// route level code-splitting
-			// this generates a separate chunk (about.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
-			// component: () =>
-			// 	import(/* webpackChunkName: "about" */ './views/About.vue')
+			redirect: '/tonghai/intro',
+			component: Home,
+			children: [
+				{
+					path: '/tonghai/intro',
+					name: 'intro',
+					component: () => import('./views/tonghai/Intro.vue')
+				},
+				{
+					path: '/tonghai/newsDetail/:id',
+					name: 'newsDetail',
+					component: () => import('./views/tonghai/NewsDetail.vue')
+				},
+				{
+					path: '/investment/stock',
+					name: 'stock',
+					component: () => import('./views/investment/Stock.vue')
+				},
+				{
+					path: '/tonghai/login',
+					name: 'login',
+					component: () => import('./views/tonghai/Login.vue')
+				}
+			]
 		}
 	]
 })
