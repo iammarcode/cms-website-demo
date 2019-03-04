@@ -6,4 +6,4 @@ var newSchema = new Schema({
 	newsList: Array
 })
 
-module.exports = mongoose.model('New', newSchema)
+module.exports = mongoose.model('News', newSchema)

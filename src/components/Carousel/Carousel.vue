@@ -1,7 +1,7 @@
 <template>
   <el-carousel :interval="5000" arrow="hover" :height="'450px'" class="carousel">
     <el-carousel-item
-      v-for="(item, index) in carouselList"
+      v-for="(item, index) in carouselData.carousel"
       :key="index"
       class="carousel-item"
       :style="backgroundImage + item.image"
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'carousel',
 	data() {
@@ -23,24 +24,28 @@ export default {
 		}
 	},
 	computed: {
+		...mapState('carousel', ['carouselData']),
 		backgroundImage() {
 			return `background-image: url('/static/images/`
 		}
 	},
 	methods: {
-		getCarousel() {
-			this.$api
-				.get('/api/carousel')
-				.then(result => {
-					this.carouselList = result.data.data.carousel
+		...mapMutations(['modifyState']),
+		async getCarrouselData() {
+			try {
+				let params = {}
+				let res = await this.$api.intro.matches('/carousel', params)
+				this.modifyState({
+					path: 'carousel/carouselData',
+					data: res.data
 				})
-				.catch(err => {
-					console.log(err)
-				})
+			} catch (e) {
+				console.log('​catch error -> e', e)
+			}
 		}
 	},
 	mounted() {
-		this.getCarousel()
+		this.getCarrouselData()
 	}
 }
 </script>

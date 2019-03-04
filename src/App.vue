@@ -2,14 +2,17 @@
   <div id="app">
     <Header class="app-header"/>
     <router-view class="app-content"/>
+    <Footer class="app-footer"/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 export default {
 	components: {
-		Header
+		Header,
+		Footer
 	}
 }
 </script>
@@ -26,8 +29,6 @@ export default {
 	height: 100%;
 	position: relative;
 	box-sizing: border-box;
-	overflow-x: hidden;
-	// background-color: #fafafa;
 
 	.app-header {
 		height: @header_height;
@@ -41,8 +42,14 @@ export default {
 		box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
 	}
 	.app-content {
+		margin-top: 60px;
 		background-color: #fafafa;
-		min-height: 700px;
+		min-height: calc(100% - @header_height - @footer_height);
+		box-sizing: border-box;
+	}
+	.app-footer {
+		height: @footer_height;
+		box-sizing: border-box;
 	}
 }
 </style>

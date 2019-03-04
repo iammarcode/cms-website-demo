@@ -3,7 +3,7 @@ var router = express.Router()
 var model = require('../db/db')
 
 router.get('/', function(req, res) {
-	model.Stock.find({}, (err, stock) => {
+	model.News.find({}, (err, news) => {
 		if (err) {
 			res.json({
 				status: 0,
@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
 			res.json({
 				status: 1,
 				message: '',
-				data: stock[0]
+				data: news[0]
 			})
 		}
 	})

@@ -1,10 +1,10 @@
 <template>
-  <div class="login">
-    <a href="/tonghai/login" class="login-link">
+  <div class="user">
+    <router-link to="/user/hello" class="user-link">
       <svg class="icon icon-login" aria-hidden="true">
         <use xlink:href="#icon-login"></use>
       </svg>
-    </a>
+    </router-link>
   </div>
 </template>
 
@@ -21,10 +21,10 @@ export default {
 
 <style lang='less' scoped>
 @import (reference) '../../assets/css/constant.less';
-.login {
+.user {
 	display: flex;
 	justify-content: center;
-	.login-link {
+	.user-link {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

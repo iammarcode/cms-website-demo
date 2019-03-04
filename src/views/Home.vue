@@ -1,17 +1,13 @@
 <template>
   <div class="home">
-    <router-view></router-view>
-    <Footer/>
+    <router-view class="home-view"></router-view>
   </div>
 </template>
 
 <script>
-import Footer from './../components/Footer/Footer'
 export default {
 	name: 'home',
-	components: {
-		Footer
-	},
+	components: {},
 	data() {
 		return {}
 	},
@@ -23,6 +19,8 @@ export default {
 <style lang='less' scoped>
 @import (reference) '../assets/css/constant.less';
 .home {
-	margin-top: @header_height;
+	.home-view {
+		height: 100%;
+	}
 }
 </style>

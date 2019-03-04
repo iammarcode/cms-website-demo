@@ -10,9 +10,9 @@
         <use xlink:href="#icon-facebook"></use>
       </svg>
     </a>
-    <a href="https://web.wechat.com" class="header-concat-link" target="blank">
-      <svg class="icon icon-wechat" aria-hidden="true">
-        <use xlink:href="#icon-wechat"></use>
+    <a href="https://web.whatsapp.com" class="header-concat-link" target="blank">
+      <svg class="icon icon-whatsapp" aria-hidden="true">
+        <use xlink:href="#icon-whatsapp"></use>
       </svg>
     </a>
     <a href="https://twitter.com/?lang=zh-cn" class="header-concat-link" target="blank">

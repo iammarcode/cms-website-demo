@@ -266,31 +266,16 @@ export default {
 			this.echartOption.series[3].data = calculateMA(20)
 			this.echartOption.series[4].data = calculateMA(30)
 		},
-		getEchartData() {
-			new Promise((resolve, reject) => {
-				this.$api
-					.get('/api/stock/')
-					.then(result => {
-						resolve(result)
-					})
-					.catch(err => {
-						reject(err)
-					})
-			})
-				.then(result => {
-					this.tips = result.data.data.tips // tips
-					this.statement01 = result.data.data.statement01 // statement01
-					this.statement02 = result.data.data.statement02 // statement02
-					this.initData = result.data.data.compositeIndex
-
-					this.setEchartOption()
-					this.echartOption.title.text = result.data.data.text // test
-					this.myChart = echarts.init(document.getElementById('myChart'))
-					this.myChart.setOption(this.echartOption, true)
-				})
-				.catch(err => {
-					console.log(err)
-				})
+		async getEchartData() {
+			var result = await this.$api.get('/api/stock')
+			this.tips = result.data.data.tips // tips
+			this.statement01 = result.data.data.statement01 // statement01
+			this.statement02 = result.data.data.statement02 // statement02
+			this.initData = result.data.data.compositeIndex
+			this.setEchartOption()
+			this.echartOption.title.text = result.data.data.text // test
+			this.myChart = echarts.init(document.getElementById('myChart'))
+			this.myChart.setOption(this.echartOption, true)
 		}
 	},
 	mounted() {

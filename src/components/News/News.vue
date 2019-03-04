@@ -1,8 +1,8 @@
 <template>
   <section class="news">
-    <div class="news-title">{{newsTitle}}</div>
+    <div class="news-title">{{newsData.newsTitle}}</div>
     <el-carousel :interval="4000" type="card" height="400px">
-      <el-carousel-item v-for="(item, index) in newsList" :key="index" class="news-item">
+      <el-carousel-item v-for="(item, index) in newsData.newsList" :key="index" class="news-item">
         <div class="news-artical-img">
           <img :src="'/static/images/' + item.image">
         </div>
@@ -15,21 +15,25 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'news',
-	components: {},
-	data() {
-		return {
-			newsTitle: '',
-			newsList: '',
-			newsDate: ''
-		}
+	computed: {
+		...mapState('news', ['newsData'])
 	},
 	methods: {
+		...mapMutations(['modifyState']),
 		async getNewsData() {
-			var newData = await this.$api.get('/api/new')
-			this.newsTitle = newData.data.data.newsTitle
-			this.newsList = newData.data.data.newsList
+			try {
+				let params = {}
+				let res = await this.$api.intro.matches('/news', params)
+				this.modifyState({
+					path: 'news/newsData',
+					data: res.data
+				})
+			} catch (e) {
+				console.log('​catch error -> e', e)
+			}
 		}
 	},
 	mounted() {

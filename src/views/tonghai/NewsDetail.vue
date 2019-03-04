@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Breadcrumb :breadcrumb="newsData.breadcrumb"/>
+    <Breadcrumb :breadcrumb="newsDetail.breadcrumb"/>
     <section class="newsDetail">
       <el-main class="newsDetail-content">
-        <div class="newsDetail-content-summary">{{newsData.summary}}</div>
-        <div class="newsDetail-content-date">{{newsData.date}} {{newsData.editor}}</div>
-        <div class="newsDetail-content-artical">{{newsData.artical}}</div>
+        <div class="newsDetail-content-summary">{{newsDetail.summary}}</div>
+        <div class="newsDetail-content-date">{{newsDetail.date}} {{newsDetail.editor}}</div>
+        <div class="newsDetail-content-artical">{{newsDetail.artical}}</div>
       </el-main>
       <el-aside class="newsDetail-week">
         <div class="newsDetail-week-title">每周精选</div>
-        <div class="newsDetail-week-item" v-for="(item, index) in newsList" :key="index">
+        <div class="newsDetail-week-item" v-for="(item, index) in newsData.newsList" :key="index">
           <img :src="'/static/images/' + item.image_min" class="newsDetail-week-item-img">
           <!-- <div class="newsDetail-week-item-title">{{item.summary}}</div> -->
           <router-link
@@ -24,38 +24,68 @@
 
 <script>
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
+import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'newsDetail',
+	computed: {
+		...mapState('news', ['newsData'])
+	},
 	components: {
 		Breadcrumb
 	},
 	data() {
 		return {
-			// newsId: '',
-			newsData: [],
-			newsList: []
+			newsDetail: {}
 		}
 	},
 	computed: {
 		newsId() {
 			return this.$route.params.id
-		}
+		},
+		...mapState('news', ['newsData'])
 	},
 	methods: {
+		...mapMutations(['modifyState']),
+		async getNewsData() {
+			try {
+				let params = {}
+				let res = await this.$api.intro.matches('/news', params)
+				this.modifyState({
+					path: 'news/newsData',
+					data: res.data
+				})
+			} catch (e) {
+				console.log('​catch error -> e', e)
+			}
+		},
 		async getNewsList() {
-			let result = await this.$api.get('/api/new')
-			this.newsList = result.data.data.newsList
-			this.newsData = this.newsList.find((item, index) => {
-				return index === Number(this.newsId) - 1
-			}) //TODO: id don't exit?
+			if (this.newsData.newsTitle === undefined) {
+				try {
+					let params = {}
+					let res = await this.$api.intro.matches('/news', params)
+					this.modifyState({
+						path: 'news/newsData',
+						data: res.data
+					})
+					this.newsDetail = res.data.newsList.find((item, index) => {
+						return index === Number(this.$route.params.id) - 1
+					})
+				} catch (e) {
+					console.log('​catch error -> e', e)
+				}
+			}
+			//
+			this.newsDetail = this.newsData.newsList.find((item, index) => {
+				return index === Number(this.$route.params.id) - 1
+			})
 		}
 	},
 	created() {
 		this.getNewsList()
 	},
 	watch: {
-		newsId: () => {
-			window.location.reload() //TODO: There should be a better way?
+		newsId: function() {
+			this.$router.go(0)
 		}
 	}
 }

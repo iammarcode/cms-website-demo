@@ -1,13 +1,14 @@
 <template>
   <div class="chart-container">
     <div id="myChart" ref="myChart"></div>
-    <div class="chart-tips">{{tips}}</div>
-    <div class="chart-statement01">{{statement01}}</div>
-    <div class="chart-statement02">{{statement02}}</div>
+    <div class="chart-tips">{{stockData.tips}}</div>
+    <div class="chart-statement01">{{stockData.statement01}}</div>
+    <div class="chart-statement02">{{stockData.statement02}}</div>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 // init color
 var upColor = '#ec0000'
 var upBorderColor = '#8A0000'
@@ -236,7 +237,11 @@ export default {
 			}
 		}
 	},
+	computed: {
+		...mapState('stock', ['stockData'])
+	},
 	methods: {
+		...mapMutations(['modifyState']),
 		setEchartOption() {
 			// data0
 			// console.log(this.initData)
@@ -266,31 +271,23 @@ export default {
 			this.echartOption.series[3].data = calculateMA(20)
 			this.echartOption.series[4].data = calculateMA(30)
 		},
-		getEchartData() {
-			new Promise((resolve, reject) => {
-				this.$api
-					.get('/api/stock/')
-					.then(result => {
-						resolve(result)
-					})
-					.catch(err => {
-						reject(err)
-					})
-			})
-				.then(result => {
-					this.tips = result.data.data.tips // tips
-					this.statement01 = result.data.data.statement01 // statement01
-					this.statement02 = result.data.data.statement02 // statement02
-					this.initData = result.data.data.compositeIndex
+		async getEchartData() {
+			try {
+				let params = {}
+				let res = await this.$api.intro.matches('/stock', params)
+				this.modifyState({
+					path: 'stock/stockData',
+					data: res.data
+				})
+			} catch (e) {
+				console.log('​catch error -> e', e)
+			}
+			this.initData = this.stockData.compositeIndex
 
-					this.setEchartOption()
-					this.echartOption.title.text = result.data.data.text // test
-					this.myChart = echarts.init(document.getElementById('myChart'))
-					this.myChart.setOption(this.echartOption, true)
-				})
-				.catch(err => {
-					console.log(err)
-				})
+			this.setEchartOption()
+			this.echartOption.title.text = this.stockData.text // test
+			this.myChart = echarts.init(document.getElementById('myChart'))
+			this.myChart.setOption(this.echartOption, true)
 		}
 	},
 	mounted() {

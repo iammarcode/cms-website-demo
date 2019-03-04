@@ -4,7 +4,7 @@ import Home from './views/Home'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
 
@@ -31,11 +31,42 @@ export default new Router({
 					component: () => import('./views/investment/Stock.vue')
 				},
 				{
-					path: '/tonghai/login',
+					path: '/user/register',
+					name: 'register',
+					component: () => import('./views/user/Register.vue')
+				},
+				{
+					path: '/user/login',
 					name: 'login',
-					component: () => import('./views/tonghai/Login.vue')
+					component: () => import('./views/user/Login.vue')
+				},
+				{
+					path: '/user/hello',
+					name: 'hello',
+					meta: {
+						requireAuth: true
+					},
+					component: () => import('./views/user/Hello.vue')
 				}
 			]
 		}
 	]
 })
+
+router.beforeEach((to, from, next) => {
+	let token = localStorage.getItem('token')
+	if (to.meta.requireAuth) {
+		if (token) {
+			next()
+		} else {
+			next({
+				path: '/user/login',
+				query: { redirect: to.fullPath }
+			})
+		}
+	} else {
+		next()
+	}
+})
+
+export default router

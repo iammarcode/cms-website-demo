@@ -6,7 +6,7 @@
     <!-- Nav -->
     <div class="header-nav">
       <Menu
-        v-for="(item, index) in navList"
+        v-for="(item, index) in headerData.nav"
         :key="index"
         :navItem="item"
         :itemIndex="index"
@@ -27,17 +27,11 @@ import Menu from '../public/Menu'
 import Input from '../public/Input'
 import Concat from '../public/Concat'
 import LoginButton from '../../components/Login/LoginButton'
+import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'Header',
-	data() {
-		return {
-			headerData: {}
-		}
-	},
 	computed: {
-		navList() {
-			return this.headerData.nav
-		}
+		...mapState('header', ['headerData'])
 	},
 	components: {
 		Menu,
@@ -46,14 +40,24 @@ export default {
 		LoginButton
 	},
 	methods: {
-		getHeader() {
-			this.$api.get('/api/header').then(data => {
-				this.headerData = data.data.data
-			})
+		...mapMutations(['modifyState']),
+		async getHeaderData() {
+			try {
+				let params = {
+					type: 'curry'
+				}
+				let res = await this.$api.intro.matches('/header', params)
+				this.modifyState({
+					path: 'header/headerData',
+					data: res.data
+				})
+			} catch (e) {
+				console.log('​catch error -> e', e)
+			}
 		}
 	},
 	mounted() {
-		this.getHeader()
+		this.getHeaderData()
 	}
 }
 </script>
@@ -64,25 +68,25 @@ export default {
 .header {
 	display: flex;
 	.header-logo {
-		flex: 0 1;
+		flex: 1 1 10%;
 		height: 100%;
 		display: flex;
 		flex-flow: column nowrap;
 		justify-content: space-around;
-		margin: 0 50px;
+		padding: 0 30px;
 		.header-logo-img {
 			width: 30px;
 			height: 30px;
 		}
 	}
 	.header-nav {
-		flex: 1 1;
+		flex: 4 4 40%;
 		display: flex;
 		.menu.header-nav-item {
 		}
 	}
 	.header-input {
-		flex: 1 1;
+		flex: 2 2 30%;
 		display: flex;
 		line-height: 60px;
 		justify-content: space-around;
@@ -96,8 +100,10 @@ export default {
 		}
 	}
 	.header-concat {
+		flex: 0 2 10%;
 	}
 	.header-login {
+		flex: 1 1 10%;
 		width: 100px;
 		height: 100%;
 		line-height: @header_height;

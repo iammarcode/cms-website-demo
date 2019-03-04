@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-content-item" v-for="(item, index) in footerList" :key="index">
+      <div class="footer-content-item" v-for="(item, index) in footerData.dataList" :key="index">
         <h3 class="item-title">{{item.title}}</h3>
         <router-link
           v-for="(member, index) in item.list"
@@ -11,23 +11,29 @@
         >{{member.name}}</router-link>
       </div>
     </div>
-    <div class="footer-copyright">{{message}}</div>
+    <div class="footer-copyright">{{footerData.copyright}}</div>
   </footer>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
-	data() {
-		return {
-			footerList: [],
-			message: ''
-		}
+	computed: {
+		...mapState('footer', ['footerData'])
 	},
 	methods: {
+		...mapMutations(['modifyState']),
 		async getFooterData() {
-			let data = await this.$api.get('/api/footer')
-			this.footerList = data.data.data.dataList
-			this.message = data.data.data.copyright
+			try {
+				let params = {}
+				let res = await this.$api.intro.matches('/footer', params)
+				this.modifyState({
+					path: 'footer/footerData',
+					data: res.data
+				})
+			} catch (e) {
+				console.log('​catch error -> e', e)
+			}
 		}
 	},
 	created() {
@@ -39,7 +45,6 @@ export default {
 <style lang='less' scoped>
 @import (reference) '../../assets/css/constant.less';
 .footer {
-	height: @footer_height;
 	background-color: #4f4f50;
 	display: flex;
 	flex-direction: column;
