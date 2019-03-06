@@ -1,34 +1,31 @@
 <template>
   <div class="login">
-    <el-row>
-      <el-col :span="10" :offset="7">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="用户登录" name="first">
-            <el-col>
-              <el-form :model="dynamicValidateForm" label-width="100px" ref="dynamicValidateForm">
-                <el-form-item prop="email" label="邮箱" :rules="rules.email">
-                  <el-input v-model="dynamicValidateForm.email"></el-input>
-                </el-form-item>
-                <el-form-item prop="password" label="密码" :rules="rules.password">
-                  <el-input type="password" v-model="dynamicValidateForm.password"></el-input>
-                </el-form-item>
-                <el-button type="primary" @click="submitForm('dynamicValidateForm')">登录</el-button>
-                <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
-              </el-form>
-            </el-col>
-          </el-tab-pane>
-          <el-tab-pane label="用户注册" name="second">
-            <Register></Register>
-          </el-tab-pane>
-        </el-tabs>
-      </el-col>
-    </el-row>
+    <h3 class="login-title">用户登录</h3>
+    <el-form
+      :model="dynamicValidateForm"
+      label-width="100px"
+      ref="dynamicValidateForm"
+      class="login-form"
+    >
+      <el-form-item prop="email" label="邮箱" :rules="rules.email">
+        <el-input v-model="dynamicValidateForm.email"></el-input>
+      </el-form-item>
+      <el-form-item prop="password" label="密码" :rules="rules.password">
+        <el-input type="password" v-model="dynamicValidateForm.password"></el-input>
+      </el-form-item>
+      <div class="login-btn">
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">登录</el-button>
+        <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
+        <el-button @click="handleRegister">注册</el-button>
+      </div>
+    </el-form>
   </div>
 </template>
 
 <script>
 import Register from '../../views/user/Register'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import { Message } from 'element-ui'
 export default {
 	name: 'login',
 	data() {
@@ -62,10 +59,18 @@ export default {
 	components: {
 		Register
 	},
-
 	methods: {
-		...mapActions('user', ['userLogin', 'userName']),
+		...mapActions('user', [
+			'userToken',
+			'userName',
+			'userBirth',
+			'userStock',
+			'userEmail'
+		]),
 		handleClick(tab, event) {},
+		handleRegister() {
+			this.$router.push('/user/register')
+		},
 		// reset
 		resetForm(formName) {
 			this.$refs[formName].resetFields()
@@ -75,37 +80,51 @@ export default {
 			this.$refs[formName].validate(valid => {
 				if (valid) {
 					let data = this.dynamicValidateForm
+
 					this.$api.user.userLogin(data).then(res => {
-						// }
-						if (!data.info) {
-							this.$message({
-								type: 'info',
-								message: "Account don't exit"
-							})
-						}
-						if (res.success) {
-							console.log(res)
-							this.$message({
-								type: 'success',
-								message: 'Login successful'
-							})
-							// this.$store.dispatch('userLogin', res.token)
-							// this.$store.dispatch('userName', res.email)
-							// this.userLogin(res.token)
-							this.userLogin(res.token)
-							this.userName(res.email)
-							let redirect = decodeURIComponent(
-								this.$route.query.redirect || '/user/hello'
-							)
-							console.log(redirect)
-							this.$router.push({
-								path: redirect
-							})
-						} else {
-							this.$message({
-								type: 'info',
-								message: 'Password incorrect'
-							})
+						console.log('res', res) //TODO: for debug
+						switch (res.code) {
+							case 2000:
+								Message({
+									type: 'success',
+									message: res.message
+								})
+								this.userToken(res.token)
+								this.userName(res.name)
+								this.userBirth(res.birth)
+								this.userStock(res.stock)
+								this.userEmail(res.email)
+								let redirect = decodeURIComponent(
+									this.$route.query.redirect || '/user/hello'
+								)
+								this.$router.push({
+									path: redirect
+								})
+								break
+							case 4004:
+								Message({
+									type: 'error',
+									message: res.message,
+									duration: 5 * 1000,
+									showClose: true
+								})
+								break
+							case 4008:
+								Message({
+									type: 'error',
+									message: res.message,
+									duration: 5 * 1000,
+									showClose: true
+								})
+								break
+							default:
+								Message({
+									type: 'error',
+									message: '未知错误',
+									duration: 4 * 1000,
+									showClose: true
+								})
+								break
 						}
 					})
 				} else {
@@ -119,4 +138,27 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.login {
+	min-height: 70vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 40px;
+	.login-title {
+		height: 50px;
+		min-width: 40%;
+		font-size: 20px;
+		line-height: 50px;
+		padding-left: 80px;
+	}
+	.login-form {
+		min-width: 40%;
+		justify-content: center;
+	}
+	.login-btn {
+		padding-left: 100px;
+	}
+	.datouguai {
+	}
+}
 </style>

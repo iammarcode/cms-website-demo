@@ -21,6 +21,7 @@ const Register = (req, res) => {
 	userRegister.create_time = moment(
 		objectIdToTimestamp(userRegister._id)
 	).format('YYYY-MM-DD HH:mm:ss')
+
 	model.User.findOne(
 		{
 			email: userRegister.email.toLowerCase()

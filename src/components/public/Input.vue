@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 	data() {
 		return {
@@ -19,6 +20,9 @@ export default {
 			state4: '',
 			timeout: null
 		}
+	},
+	computed: {
+		...mapState('header', ['headerData'])
 	},
 	methods: {
 		loadAll() {
@@ -46,9 +50,7 @@ export default {
 			console.log(item)
 		},
 		getInputData() {
-			this.$api.get('/api/header').then(data => {
-				this.restaurants = data.data.data.inputData
-			})
+			this.restaurants = this.headerData.inputData
 		}
 	},
 	mounted() {

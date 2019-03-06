@@ -4,6 +4,8 @@
  */
 
 import axios from 'axios'
+import { Message } from 'element-ui'
+import router from '../store/index'
 
 // config of axios instance
 let config = {
@@ -22,6 +24,12 @@ instance.defaults.headers.put['Content-Type'] = 'application/json'
 // Add request interceptor
 instance.interceptors.request.use(
 	config => {
+		// set token
+		if (window.localStorage.getItem('token')) {
+			config.headers.Authorization = `token ${window.localStorage.getItem(
+				'token'
+			)}`
+		}
 		if (config.method === 'post' || config.method === 'put') {
 			// Before post、put is sented，transform them(Object) to string, to handle java back-stage parsing issues
 			config.data = JSON.stringify(config.data)
@@ -39,27 +47,19 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
 	response => {
 		let { data } = response
+		if (response.code === 401) {
+			Message({
+				message: response.message,
+				duration: 3 * 1000
+			})
+			router.push('/user/login')
+		}
+
 		return data
 	},
 	error => {
 		// console.log(error.response)
-		let info = {}
-		// { status, statusText, data } = error.response
-
-		// TODO: Is the following process of handle error suitable??? ----> https://github.com/axios/axios#axiosgeturl-config
-		if (!error.response) {
-			info = {
-				code: 5000,
-				msg: 'Network Error'
-			}
-		} else {
-			info = {
-				code: 404
-				// data: data,
-				// msg: statusText
-			}
-		}
-		return info
+		return Promise.reject(error)
 	}
 )
 
@@ -68,3 +68,5 @@ instance.interceptors.response.use(
 export default function() {
 	return instance
 }
+
+// export default instance

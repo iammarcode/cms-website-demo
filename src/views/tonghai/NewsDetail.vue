@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb :breadcrumb="newsDetail.breadcrumb"/>
+    <!-- <Breadcrumb :breadcrumb="newsDetail.breadcrumb"/> -->
     <section class="newsDetail">
       <el-main class="newsDetail-content">
         <div class="newsDetail-content-summary">{{newsDetail.summary}}</div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
+// import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'
 import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'newsDetail',
@@ -31,7 +31,7 @@ export default {
 		...mapState('news', ['newsData'])
 	},
 	components: {
-		Breadcrumb
+		// Breadcrumb
 	},
 	data() {
 		return {

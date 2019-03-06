@@ -43,9 +43,7 @@ export default {
 		...mapMutations(['modifyState']),
 		async getHeaderData() {
 			try {
-				let params = {
-					type: 'curry'
-				}
+				let params = {}
 				let res = await this.$api.intro.matches('/header', params)
 				this.modifyState({
 					path: 'header/headerData',
