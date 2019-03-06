@@ -12,8 +12,11 @@ const Register = (req, res) => {
 	let userRegister = new model.User({
 		email: req.body.email,
 		password: sha1(req.body.password),
+		name: req.body.name,
+		birth: req.body.birth,
 		recheck: req.body.recheck,
-		token: createToken(this.email) // sign
+		token: createToken(this.email), // sign
+		stock: req.body.stock
 	})
 	userRegister.create_time = moment(
 		objectIdToTimestamp(userRegister._id)
@@ -27,19 +30,19 @@ const Register = (req, res) => {
 			if (doc) {
 				//TODO:doc === null??
 				res.json({
-					message: 'user has exited!Do not register again!'
+					message: '用户已经存在!不能重复注册'
 				})
 			} else {
 				userRegister.save(err => {
 					if (err) {
 						res.json({
 							success: false,
-							message: 'register failed'
+							message: '注册失败'
 						})
 					}
 					res.json({
 						success: true,
-						message: 'register success'
+						message: '注册成功'
 					})
 				})
 			}
@@ -55,28 +58,33 @@ const Login = (req, res) => {
 		token: createToken(this.email)
 	})
 	model.User.findOne({ email: userLogin.email }, (err, doc) => {
-		if (err) console.log(err) // TODO:
+		if (err) console.log(err) // TODO: for debug
 		if (!doc) {
 			res.json({
-				message: 'user dont exit',
-				info: false
+				code: 4004,
+				success: false,
+				message: '用户不存在'
 			})
 		} else if (userLogin.password === doc.password) {
-			console.log('login in success')
 			var name = req.body.email
 			res.json({
+				code: 2000,
 				success: true,
+				message: '登录成功',
 				email: doc.email,
+				name: doc.name,
+				birth: doc.birth,
+				stock: doc.stock,
 				time: moment(objectIdToTimestamp(doc._id)).format(
 					'YYYY-MM-DD HH:mm:ss'
 				),
 				token: createToken(name)
 			})
 		} else {
-			console.log('password wrong')
 			res.json({
-				message: 'password wrong',
-				success: false
+				code: 4008,
+				success: false,
+				message: '密码错误'
 			})
 		}
 	})
@@ -84,26 +92,26 @@ const Login = (req, res) => {
 
 // print all user
 const User = (req, res) => {
-	model.User.find({}, (err, doc) => {
-		if (err) console.log(err)
-		res.send(doc)
-	})
-}
-
-// delete user
-const delUser = (req, res) => {
-	model.User.findOneAndRemove({ _id: req.body.id }, err => {
-		if (err) console.log(err)
-		console.log('remove user success')
+	let getUser = {
+		email: req.body.email
+	}
+	model.User.findOne({ email: getUser.email }, (err, doc) => {
+		// if (err) console.log(err)
+		if (err) {
+			res.json({
+				code: 404,
+				message: err.message
+			})
+		}
 		res.json({
-			message: 'remove user success'
+			code: 200,
+			data: doc
 		})
 	})
 }
 
 router.post('/register', Register)
 router.post('/login', Login)
-router.get('/user', checkToken, User)
-router.get('/delUser', checkToken, delUser)
+router.post('/user', checkToken, User)
 
 module.exports = router

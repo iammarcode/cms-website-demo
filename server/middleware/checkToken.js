@@ -1,26 +1,38 @@
 const jwt = require('jsonwebtoken')
-// jwt.decode(token [, options])
 
 module.exports = function(req, res, next) {
-	// jwt.verify(token, 'secret', { complete: true }, (err, decoded) => {
-	// 	console.log(decoded)
-	// })
-
-	let token = req.headers['auth'].split('')[1]
+	// if (req.headers['authorization']) {
+	let token = req.headers['authorization'].split(' ')[1]
 	// jwt.verify(token, secretOrPublicKey, [options, callback])
-	try {
-		jwt.verify(token, 'secret')
-		res.json({
-			code: 200,
-			message: 'token is valid'
-		})
-	} catch (error) {
-		// console.log(error)
-		res.json({
-			code: 401, //TODO: restful standrad
-			message: error.message,
-			expireAt: error.expireAt
-		})
-	}
-	next()
+	jwt.verify(token, 'secret', (err, decoded) => {
+		if (err) {
+			// console.log(err)
+			res.json({
+				code: 401,
+				message: 'token过期',
+				expiredAt: err.expiredAt
+			})
+		} else {
+			console.log(decoded)
+			next()
+		}
+	})
+	// } else {
+	// 	res.json({
+	// 		code: 401,
+	// 		message: 'token丢失'
+	// 	})
+	// }
+	// let token = req.headers['authorization'].split(' ')[1]
+	// // 解构 token，生成一个对象 { name: xx, iat: xx, exp: xx }
+	// let decoded = jwt.decode(token, 'secret')
+	// // console.log(decoded.exp)
+	// // console.log(Date.now() / 1000)
+	// // 监测 token 是否过期
+	// if (token && decoded.exp <= Date.now() / 1000) {
+	// 	return res.json({
+	// 		code: 401,
+	// 		message: 'token过期，请重新登录'
+	// 	})
+	// }
 }

@@ -1,7 +1,6 @@
 /**
  * jwt is suitable for pass some no-sensitive information to web-application
  */
-
 var jwt = require('jsonwebtoken')
 module.exports = function(name) {
 	// jwt.sign(payload, secretOrPrivateKey, [options, callback])
@@ -10,7 +9,7 @@ module.exports = function(name) {
 			name: name
 		},
 		'secret',
-		{ expiresIn: '24h' }
+		{ expiresIn: '10s' }
 	)
 	return token
 }
