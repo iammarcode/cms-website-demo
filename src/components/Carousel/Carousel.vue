@@ -33,8 +33,7 @@ export default {
 		...mapMutations(['modifyState']),
 		async getCarrouselData() {
 			try {
-				let params = {}
-				let res = await this.$api.intro.matches('/carousel', params)
+				let res = await this.$api.intro.getCarousel()
 				this.modifyState({
 					path: 'carousel/carouselData',
 					data: res.data

@@ -5,7 +5,6 @@
 
 import axios from 'axios'
 import { Message } from 'element-ui'
-import router from '../store/index'
 
 // config of axios instance
 let config = {
@@ -46,16 +45,16 @@ instance.interceptors.request.use(
 // Add response interceptor
 instance.interceptors.response.use(
 	response => {
-		let { data } = response
-		if (response.code === 401) {
+		if (response.data.code === 4001) {
+			window.store.dispatch('user/userLogout')
+			window.router.push('/user/login')
 			Message({
-				message: response.message,
-				duration: 3 * 1000
+				message: response.data.message,
+				duration: 2 * 1000
 			})
-			router.push('/user/login')
 		}
 
-		return data
+		return response.data
 	},
 	error => {
 		// console.log(error.response)

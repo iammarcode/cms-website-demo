@@ -56,9 +56,12 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 	let token = localStorage.getItem('token')
 	if (to.meta.requireAuth) {
+		console.log('router auth')
 		if (token) {
+			console.log('router auth token exit')
 			next()
 		} else {
+			console.log('router auth token do not exit')
 			next({
 				path: '/user/login',
 				query: { redirect: to.fullPath }

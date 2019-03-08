@@ -1,26 +1,26 @@
-import api from '../index'
-import user from './user'
-
-// some api need to be added token or orthers to header, and set up following
-const params = {}
-const headers = {}
-
-// add token to headers
-let tokenHeaders = {}
-if (window.localStorage.getItem('token')) {
-	tokenHeaders['Authorization'] = `token ${window.localStorage.getItem(
-		'token'
-	)}`
-}
+import axios from '../axios'
+let service = axios()
 
 export default {
-	userRegister(data) {
-		return api.post(user.url + '/register', params, headers, data)
+	getLogin(data) {
+		return service({
+			url: '/api/user/login',
+			method: 'post',
+			data: data
+		})
 	},
-	userLogin(data) {
-		return api.post(user.url + '/login', params, headers, data)
+	getRegister(data) {
+		return service({
+			url: '/api/user/register',
+			method: 'post',
+			data: data
+		})
 	},
-	getUser(data) {
-		return api.post(user.url + '/user', params, tokenHeaders, data)
+	getHello(data) {
+		return service({
+			url: '/api/user/hello',
+			method: 'post',
+			data: data
+		})
 	}
 }

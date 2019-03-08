@@ -3,6 +3,7 @@ import App from './App.vue'
 
 // router
 import router from './router'
+window.router = router
 
 // Element UI
 import ElementUI from 'element-ui'
@@ -23,11 +24,16 @@ import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper /* { default global options } */)
 
 // axios
-import api from './api/install'
-Vue.use(api)
+import api from './api/index'
+Object.defineProperty(Vue.prototype, '$api', {
+	get: function() {
+		return api
+	}
+})
 
 // vuex
 import store from './store/index'
+window.store = store
 
 new Vue({
 	el: '#app',

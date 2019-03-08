@@ -34,7 +34,6 @@ export default {
 				email: '',
 				password: ''
 			},
-			activeName: this.$store.state.activeName,
 			rules: {
 				email: [
 					{
@@ -60,13 +59,7 @@ export default {
 		Register
 	},
 	methods: {
-		...mapActions('user', [
-			'userToken',
-			'userName',
-			'userBirth',
-			'userStock',
-			'userEmail'
-		]),
+		...mapActions('user', ['userToken', 'userData']),
 		handleClick(tab, event) {},
 		handleRegister() {
 			this.$router.push('/user/register')
@@ -80,8 +73,7 @@ export default {
 			this.$refs[formName].validate(valid => {
 				if (valid) {
 					let data = this.dynamicValidateForm
-
-					this.$api.user.userLogin(data).then(res => {
+					this.$api.user.getLogin(data).then(res => {
 						console.log('res', res) //TODO: for debug
 						switch (res.code) {
 							case 2000:
@@ -90,10 +82,7 @@ export default {
 									message: res.message
 								})
 								this.userToken(res.token)
-								this.userName(res.name)
-								this.userBirth(res.birth)
-								this.userStock(res.stock)
-								this.userEmail(res.email)
+								this.userData(res.data)
 								let redirect = decodeURIComponent(
 									this.$route.query.redirect || '/user/hello'
 								)

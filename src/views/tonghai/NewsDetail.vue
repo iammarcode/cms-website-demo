@@ -61,8 +61,7 @@ export default {
 		async getNewsList() {
 			if (this.newsData.newsTitle === undefined) {
 				try {
-					let params = {}
-					let res = await this.$api.intro.matches('/news', params)
+					let res = await this.$api.intro.getNews()
 					this.modifyState({
 						path: 'news/newsData',
 						data: res.data

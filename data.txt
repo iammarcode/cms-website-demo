@@ -1,0 +1,4 @@
+response 响应规范：
+2000 success
+4001 token expire
+4004 uncaught error

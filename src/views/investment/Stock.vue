@@ -273,8 +273,7 @@ export default {
 		},
 		async getEchartData() {
 			try {
-				let params = {}
-				let res = await this.$api.intro.matches('/stock', params)
+				let res = await this.$api.intro.getStock()
 				this.modifyState({
 					path: 'stock/stockData',
 					data: res.data

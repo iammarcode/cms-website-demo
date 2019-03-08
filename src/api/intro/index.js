@@ -1,12 +1,40 @@
-import api from '../index'
-import intro from './intro'
-
-// some api need to be added token or orthers to header, and set up following
-const header = {}
+import axios from '../axios'
+let service = axios()
 
 export default {
-	matches(url, params) {
-		// return a promise
-		return api.get(intro.intro + url, params, header)
+	getHeader() {
+		return service({
+			url: '/api/intro/header',
+			method: 'get',
+			params: {}
+		})
+	},
+	getCarousel() {
+		return service({
+			url: '/api/intro/carousel',
+			method: 'get',
+			params: {}
+		})
+	},
+	getStock() {
+		return service({
+			url: '/api/intro/stock',
+			method: 'get',
+			params: {}
+		})
+	},
+	getNews() {
+		return service({
+			url: '/api/intro/news',
+			method: 'get',
+			params: {}
+		})
+	},
+	getFooter() {
+		return service({
+			url: '/api/intro/footer',
+			method: 'get',
+			params: {}
+		})
 	}
 }

@@ -25,8 +25,7 @@ export default {
 		...mapMutations(['modifyState']),
 		async getNewsData() {
 			try {
-				let params = {}
-				let res = await this.$api.intro.matches('/news', params)
+				let res = await this.$api.intro.getNews()
 				this.modifyState({
 					path: 'news/newsData',
 					data: res.data

@@ -138,7 +138,7 @@ export default {
 				if (valid) {
 					let data = this.registerForm
 					this.$api.user
-						.userRegister(data)
+						.getRegister(data)
 						.then(res => {
 							if (res.success) {
 								Message({

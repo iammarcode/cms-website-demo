@@ -28,6 +28,7 @@ import Input from '../public/Input'
 import Concat from '../public/Concat'
 import LoginButton from '../../components/Login/LoginButton'
 import { mapState, mapMutations } from 'vuex'
+
 export default {
 	name: 'Header',
 	computed: {
@@ -43,8 +44,7 @@ export default {
 		...mapMutations(['modifyState']),
 		async getHeaderData() {
 			try {
-				let params = {}
-				let res = await this.$api.intro.matches('/header', params)
+				let res = await this.$api.intro.getHeader()
 				this.modifyState({
 					path: 'header/headerData',
 					data: res.data

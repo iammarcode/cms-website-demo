@@ -25,8 +25,8 @@ export default {
 		...mapMutations(['modifyState']),
 		async getFooterData() {
 			try {
-				let params = {}
-				let res = await this.$api.intro.matches('/footer', params)
+				// let res = await this.$api.intro.matches('/footer', params)
+				let res = await this.$api.intro.getFooter()
 				this.modifyState({
 					path: 'footer/footerData',
 					data: res.data

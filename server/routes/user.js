@@ -68,18 +68,15 @@ const Login = (req, res) => {
 			})
 		} else if (userLogin.password === doc.password) {
 			var name = req.body.email
+			doc.time = moment(objectIdToTimestamp(doc._id)).format(
+				'YYYY-MM-DD HH:mm:ss'
+			)
 			res.json({
 				code: 2000,
 				success: true,
 				message: '登录成功',
-				email: doc.email,
-				name: doc.name,
-				birth: doc.birth,
-				stock: doc.stock,
-				time: moment(objectIdToTimestamp(doc._id)).format(
-					'YYYY-MM-DD HH:mm:ss'
-				),
-				token: createToken(name)
+				token: createToken(name),
+				data: doc
 			})
 		} else {
 			res.json({
@@ -93,11 +90,7 @@ const Login = (req, res) => {
 
 // print all user
 const User = (req, res) => {
-	let getUser = {
-		email: req.body.email
-	}
-	model.User.findOne({ email: getUser.email }, (err, doc) => {
-		// if (err) console.log(err)
+	model.User.findOne({ email: req.body.email }, (err, doc) => {
 		if (err) {
 			res.json({
 				code: 404,
@@ -113,6 +106,6 @@ const User = (req, res) => {
 
 router.post('/register', Register)
 router.post('/login', Login)
-router.post('/user', checkToken, User)
+router.post('/hello', checkToken, User)
 
 module.exports = router

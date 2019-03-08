@@ -1,9 +1,10 @@
 <template scope='scope'>
   <div class="hello">
     <div class="hello-info">
-      <h3 class="hello-title">{{msgWelcome }} {{username}}</h3>
-      <h3 class="hello-stock">{{msgStock }}{{userstock}}</h3>
-      <h3 class="hello-email">{{msgConcat }}{{useremail}}</h3>
+      <h3 class="hello-title">{{msgWelcome }} {{userData.name}}</h3>
+      <h3 class="hello-stock">{{msgStock }}{{userData.stock}}</h3>
+      <h3 class="hello-email">{{msgConcat }}{{userData.email}}</h3>
+      <h3 class="hello-time">{{msgTime }}{{userData.create_time.slice(0, 10)}}</h3>
     </div>
     <el-button type="primary" @click="logout()">登出</el-button>
   </div>
@@ -19,56 +20,50 @@ export default {
 			msgWelcome: '欢迎来到你的通海个人主页, ',
 			msgConcat: '联系方式：',
 			msgStock: '目前持股：',
-			username: '',
-			useremail: '',
-			userstock: ''
+			msgTime: '账户创建时间：',
+			userData: ''
 		}
 	},
 	created() {
-		this.username = localStorage.getItem('username')
-		this.useremail = localStorage.getItem('useremail')
-		this.userstock = localStorage.getItem('userstock')
-		// console.log(window.localStorage.getItem('username'))
-		// this.username = window.localStorage.getItem('username')
+		this.userData = JSON.parse(localStorage.getItem('userData'))
 	},
-	computed: {
-		// ...mapState('user', ['username', 'userstock', 'useremail', 'userbirth'])
-	},
+	computed: {},
 	methods: {
 		...mapActions('user', ['userLogout']),
-		// getUser() {
-		// 	let data = {
-		// 		email: window.localStorage.getItem('username')
-		// 	}
-		// 	this.$api.user
-		// 		.getUser(data)
-		// 		.then(result => {
-		// 			if (result.code === 401) {
-		// 				this.$router.push('/user/login')
-		// 				this.logout()
-		// 				Message({
-		// 					type: 'info',
-		// 					message: result.message + 401
-		// 				})
-		// 			} else if (result.code === 200) {
-		// 				Message({
-		// 					type: 'success',
-		// 					message: '欢迎回来'
-		// 				})
-		// 			} else if (result.code === 404) {
-		// 				Message({
-		// 					type: 'info',
-		// 					message: result.message + 404
-		// 				})
-		// 			}
-		// 		})
-		// 		.catch(err => {
-		// 			console.log(err)
-		// 		})
-		// },
+		getUser() {
+			let data = {
+				email: JSON.parse(localStorage.getItem('userData')).email
+			}
+			this.$api.user
+				.getHello(data)
+				.then(result => {
+					// if (result.code === 401) {
+					// 	this.$router.push('/user/login')
+					// 	// this.logout()
+					// 	Message({
+					// 		type: 'error',
+					// 		message: result.message + 401
+					// 	})
+					// } else if (result.code === 200) {
+					// 	Message({
+					// 		type: 'success',
+					// 		message: '欢迎回来'
+					// 	})
+					// } else if (result.code === 404) {
+					// 	Message({
+					// 		type: 'error',
+					// 		message: result.message + 404
+					// 	})
+					// }
+					console.log('hello: ', result)
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		},
 		logout() {
 			this.userLogout()
-			if (!this.$store.state.token) {
+			if (!localStorage.getItem('token') && !localStorage.getItem('userData')) {
 				this.$router.push('/user/login')
 				Message({
 					type: 'success',
@@ -83,7 +78,7 @@ export default {
 		}
 	},
 	mounted() {
-		// this.getUser()
+		this.getUser()
 	}
 }
 </script>
@@ -103,6 +98,9 @@ export default {
 			padding: 20px 0;
 		}
 		.hello-concat {
+			padding: 20px 0;
+		}
+		.hello-time {
 			padding: 20px 0;
 		}
 	}
