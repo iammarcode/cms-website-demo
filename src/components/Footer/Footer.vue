@@ -19,7 +19,7 @@
 import { mapState, mapMutations } from 'vuex'
 export default {
 	computed: {
-		...mapState('footer', ['footerData'])
+		...mapState('intro', ['footerData'])
 	},
 	methods: {
 		...mapMutations(['modifyState']),
@@ -28,7 +28,7 @@ export default {
 				// let res = await this.$api.intro.matches('/footer', params)
 				let res = await this.$api.intro.getFooter()
 				this.modifyState({
-					path: 'footer/footerData',
+					path: 'intro/footerData',
 					data: res.data
 				})
 			} catch (e) {

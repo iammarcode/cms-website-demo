@@ -22,7 +22,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('header', ['headerData'])
+		...mapState('intro', ['headerData'])
 	},
 	methods: {
 		loadAll() {

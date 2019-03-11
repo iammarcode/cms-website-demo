@@ -19,7 +19,7 @@ import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'news',
 	computed: {
-		...mapState('news', ['newsData'])
+		...mapState('intro', ['newsData'])
 	},
 	methods: {
 		...mapMutations(['modifyState']),
@@ -27,7 +27,7 @@ export default {
 			try {
 				let res = await this.$api.intro.getNews()
 				this.modifyState({
-					path: 'news/newsData',
+					path: 'intro/newsData',
 					data: res.data
 				})
 			} catch (e) {

@@ -238,18 +238,16 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('stock', ['stockData'])
+		...mapState('intro', ['stockData'])
 	},
 	methods: {
 		...mapMutations(['modifyState']),
 		setEchartOption() {
-			// data0
-			// console.log(this.initData)
 			var data0 = splitData(this.initData)
 			// set echartOption data
 			this.echartOption.xAxis.data = data0.categoryData
 			this.echartOption.series[0].data = data0.values
-			// calculateMA
+
 			function calculateMA(dayCount) {
 				var result = []
 				for (var i = 0, len = data0.values.length; i < len; i++) {
@@ -275,7 +273,7 @@ export default {
 			try {
 				let res = await this.$api.intro.getStock()
 				this.modifyState({
-					path: 'stock/stockData',
+					path: 'intro/stockData',
 					data: res.data
 				})
 			} catch (e) {

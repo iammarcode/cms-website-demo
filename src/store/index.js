@@ -3,20 +3,12 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // vuex component
-import header from './header'
-import footer from './footer'
-import news from './news'
-import carousel from './carousel'
-import stock from './stock'
+import intro from './intro'
 import user from './user'
 
 const store = new Vuex.Store({
 	modules: {
-		header,
-		footer,
-		news,
-		carousel,
-		stock,
+		intro,
 		user
 	},
 	mutations: {
@@ -25,5 +17,5 @@ const store = new Vuex.Store({
 		}
 	}
 })
-window.store = store
+// window.store = store
 export default store

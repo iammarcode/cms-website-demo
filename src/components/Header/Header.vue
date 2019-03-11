@@ -32,7 +32,7 @@ import { mapState, mapMutations } from 'vuex'
 export default {
 	name: 'Header',
 	computed: {
-		...mapState('header', ['headerData'])
+		...mapState('intro', ['headerData'])
 	},
 	components: {
 		Menu,
@@ -46,7 +46,7 @@ export default {
 			try {
 				let res = await this.$api.intro.getHeader()
 				this.modifyState({
-					path: 'header/headerData',
+					path: 'intro/headerData',
 					data: res.data
 				})
 			} catch (e) {

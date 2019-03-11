@@ -49,6 +49,7 @@ instance.interceptors.response.use(
 			window.store.dispatch('user/userLogout')
 			window.router.push('/user/login')
 			Message({
+				type: 'error',
 				message: response.data.message,
 				duration: 2 * 1000
 			})

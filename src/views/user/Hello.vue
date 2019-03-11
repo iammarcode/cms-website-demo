@@ -37,24 +37,18 @@ export default {
 			this.$api.user
 				.getHello(data)
 				.then(result => {
-					// if (result.code === 401) {
-					// 	this.$router.push('/user/login')
-					// 	// this.logout()
-					// 	Message({
-					// 		type: 'error',
-					// 		message: result.message + 401
-					// 	})
-					// } else if (result.code === 200) {
-					// 	Message({
-					// 		type: 'success',
-					// 		message: '欢迎回来'
-					// 	})
-					// } else if (result.code === 404) {
-					// 	Message({
-					// 		type: 'error',
-					// 		message: result.message + 404
-					// 	})
-					// }
+					if (result.code === 2000) {
+						Message({
+							type: 'success',
+							message: result.message,
+							duration: 1 * 1000
+						})
+					} else if (result.code === 4004) {
+						Message({
+							type: 'error',
+							message: result.message
+						})
+					}
 					console.log('hello: ', result)
 				})
 				.catch(err => {

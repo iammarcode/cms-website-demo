@@ -42,28 +42,16 @@ export default {
 		newsId() {
 			return this.$route.params.id
 		},
-		...mapState('news', ['newsData'])
+		...mapState('intro', ['newsData'])
 	},
 	methods: {
 		...mapMutations(['modifyState']),
-		async getNewsData() {
-			try {
-				let params = {}
-				let res = await this.$api.intro.matches('/news', params)
-				this.modifyState({
-					path: 'news/newsData',
-					data: res.data
-				})
-			} catch (e) {
-				console.log('​catch error -> e', e)
-			}
-		},
 		async getNewsList() {
 			if (this.newsData.newsTitle === undefined) {
 				try {
 					let res = await this.$api.intro.getNews()
 					this.modifyState({
-						path: 'news/newsData',
+						path: 'intro/newsData',
 						data: res.data
 					})
 					this.newsDetail = res.data.newsList.find((item, index) => {
@@ -73,7 +61,6 @@ export default {
 					console.log('​catch error -> e', e)
 				}
 			}
-			//
 			this.newsDetail = this.newsData.newsList.find((item, index) => {
 				return index === Number(this.$route.params.id) - 1
 			})

@@ -93,13 +93,14 @@ const User = (req, res) => {
 	model.User.findOne({ email: req.body.email }, (err, doc) => {
 		if (err) {
 			res.json({
-				code: 404,
-				message: err.message
+				code: 4004,
+				message: '用户不存在'
 			})
 		}
 		res.json({
-			code: 200,
-			data: doc
+			code: 2000,
+			data: doc,
+			message: '欢迎回来'
 		})
 	})
 }

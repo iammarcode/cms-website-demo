@@ -1,4 +1,5 @@
 response 响应规范：
 2000 success
 4001 token expire
-4004 uncaught error
+4004 not found
+4008 secret mistake

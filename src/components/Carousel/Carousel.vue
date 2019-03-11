@@ -24,7 +24,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState('carousel', ['carouselData']),
+		...mapState('intro', ['carouselData']),
 		backgroundImage() {
 			return `background-image: url('/static/images/`
 		}
@@ -35,7 +35,7 @@ export default {
 			try {
 				let res = await this.$api.intro.getCarousel()
 				this.modifyState({
-					path: 'carousel/carouselData',
+					path: 'intro/carouselData',
 					data: res.data
 				})
 			} catch (e) {
