@@ -62,7 +62,7 @@ npm run serve   -------> foreground exhibit
 5. Article
 
 - Edit by Rich Text Editor, a backstage management web project: [finance_admin](https://github.com/chowchunlok/finance_admin/tree/dev)
-  ![Edit Article in background management](./static/gif/edit article.gif)
+  ![Edit Article in background management](./static/gif/edit.gif)
 
 * Rich Text Editor is based on [Tinymce](https://www.tiny.cloud/get-tiny/custom-builds/)
 
