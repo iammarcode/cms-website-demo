@@ -3,18 +3,12 @@ var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
-// var mongoose = require('mongoose')
 
-var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/users')
-var headerRouter = require('./routes/header')
-var carrouselRouter = require('./routes/carrousel')
-var echartRouter = require('./routes/echart')
+// router
+var introRouter = require('./routes/intro')
+var usersRouter = require('./routes/user')
 
 var app = express()
-
-// mongoose global setup
-// mongoose.set('bufferCommands', false)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -27,11 +21,8 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routes path
-app.use('/', indexRouter)
-app.use('/users', usersRouter)
-app.use('/header', headerRouter)
-app.use('/carrousel', carrouselRouter)
-app.use('/echart', echartRouter)
+app.use('/intro', introRouter)
+app.use('/user', usersRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

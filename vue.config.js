@@ -3,7 +3,7 @@ module.exports = {
 
 	outputDir: 'dist',
 
-	assetsDir: 'static',
+	assetsDir: 'assets',
 
 	filenameHashing: true,
 
@@ -92,7 +92,19 @@ module.exports = {
 
 		hotOnly: false,
 
-		proxy: 'http://127.0.0.1:3002'
+		// proxy: 'http://localhost:3002'
+		proxy: {
+			'/api': {
+				target: 'http://localhost:3002',
+				pathRewrite: { '^/api': '' }
+				// ws: true,
+				// changeOrigin: true
+			},
+			'/static': {
+				target: 'http://localhost:3002',
+				pathRewrite: { '^/static': '' }
+			}
+		}
 
 		// before: app => {}
 	},
@@ -102,8 +114,8 @@ module.exports = {
 	// https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-pwa
 	pwa: {},
 
-	pluginOptions: {},
+	pluginOptions: {}
 
 	// vue-echarts
-	transpileDependencies: ['vue-echarts', 'resize-detector']
+	// transpileDependencies: ['vue-echarts', 'resize-detector']
 }

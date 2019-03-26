@@ -3,7 +3,7 @@
     <el-autocomplete
       v-model="state4"
       :fetch-suggestions="querySearchAsync"
-      placeholder="输入你想查询的内容"
+      placeholder="Enter Keywords"
       @select="handleSelect"
       class="header-input-com"
       @focus="getInputData"
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
 	data() {
 		return {
@@ -19,6 +20,9 @@ export default {
 			state4: '',
 			timeout: null
 		}
+	},
+	computed: {
+		...mapState('intro', ['headerData'])
 	},
 	methods: {
 		loadAll() {
@@ -46,9 +50,7 @@ export default {
 			console.log(item)
 		},
 		getInputData() {
-			this.$api.get('/header').then(data => {
-				this.restaurants = data.data.data.inputData
-			})
+			this.restaurants = this.headerData.inputData
 		}
 	},
 	mounted() {
@@ -59,8 +61,6 @@ export default {
 
 <style lang='less' scoped>
 .header-input {
-	height: 100%;
-	line-height: 60px;
 	.el-autocomplete.header-input-com {
 		.el-input {
 			.el-input__inner {

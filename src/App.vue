@@ -1,32 +1,56 @@
 <template>
   <div id="app">
-    <Header/>
-    <Carrousel/>
-    <!-- <Echart/> -->
+    <Header class="app-header"/>
+    <router-view class="app-content"/>
+    <!-- <Footer class="app-footer"/> -->
   </div>
 </template>
 
 <script>
-import Header from './components/Header/Header'
-import Carrousel from './components/Carrousel/Carrousel'
-// import Echart from './components/Echart/Echart'
-
+import Header from './components/Header'
+import Footer from './components/Footer'
 export default {
-	name: 'app',
 	components: {
 		Header,
-		Carrousel
-		// Echart
+		Footer
 	}
 }
 </script>
 
-<style>
+<style scoped lang="less">
+@import (reference) './assets/css/constant.less';
 #app {
 	font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	box-sizing: border-box;
+	padding-top: @header_height;
+
+	.app-header {
+		height: @header_height;
+		width: 100%;
+		box-sizing: border-box;
+		position: fixed;
+		left: 0;
+		top: 0;
+		z-index: 999;
+		background-color: #fff;
+		box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
+	}
+	.app-content {
+		// margin-top: @header_height;
+		height: 1000px;
+		background-color: #fafafa;
+		box-sizing: border-box;
+	}
+	.app-footer {
+		height: @footer_height;
+		box-sizing: border-box;
+	}
 }
 </style>

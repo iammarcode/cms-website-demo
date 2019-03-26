@@ -1,5 +1,7 @@
-import getHeader from './header'
+import intro from './intro/index'
+import user from './user/index'
 
 export default {
-	getHeader
+	intro,
+	user
 }

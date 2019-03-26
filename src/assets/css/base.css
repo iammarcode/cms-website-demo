@@ -5,15 +5,18 @@
   vertical-align: -0.15em;
   fill: currentColor;
 }
+
 body,
 html {
   width: 100%;
   height: 100%;
   color: #333;
 }
+
 .main_box_shadow {
   box-shadow: 0 2px 5px 0 #ccc;
 }
+
 .main_border {
   border: 1px solid #ccc;
 }
