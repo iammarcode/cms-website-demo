@@ -1,5 +1,4 @@
-import axios from '../axios'
-let service = axios()
+import service from '../axios'
 
 export default {
 	getHeader() {
@@ -33,6 +32,13 @@ export default {
 	getFooter() {
 		return service({
 			url: '/api/intro/footer',
+			method: 'get',
+			params: {}
+		})
+	},
+	getArticle() {
+		return service({
+			url: '/api/intro/article',
 			method: 'get',
 			params: {}
 		})

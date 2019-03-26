@@ -3,7 +3,7 @@
     <el-autocomplete
       v-model="state4"
       :fetch-suggestions="querySearchAsync"
-      placeholder="输入你想查询的内容"
+      placeholder="Enter Keywords"
       @select="handleSelect"
       class="header-input-com"
       @focus="getInputData"
@@ -61,8 +61,6 @@ export default {
 
 <style lang='less' scoped>
 .header-input {
-	height: 100%;
-	line-height: 60px;
 	.el-autocomplete.header-input-com {
 		.el-input {
 			.el-input__inner {

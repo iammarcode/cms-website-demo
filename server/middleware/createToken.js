@@ -9,7 +9,7 @@ module.exports = function(name) {
 			name: name
 		},
 		'secret',
-		{ expiresIn: '2s' }
+		{ expiresIn: '12h' }
 	)
 	return token
 }

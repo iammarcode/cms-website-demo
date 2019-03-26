@@ -1,29 +1,29 @@
 <template>
   <div class="login">
-    <h3 class="login-title">用户登录</h3>
+    <h3 class="login-title">Login in</h3>
     <el-form
       :model="dynamicValidateForm"
       label-width="100px"
       ref="dynamicValidateForm"
       class="login-form"
     >
-      <el-form-item prop="email" label="邮箱" :rules="rules.email">
+      <el-form-item prop="email" label="email" :rules="rules.email">
         <el-input v-model="dynamicValidateForm.email"></el-input>
       </el-form-item>
-      <el-form-item prop="password" label="密码" :rules="rules.password">
-        <el-input type="password" v-model="dynamicValidateForm.password"></el-input>
+      <el-form-item prop="password" label="password" :rules="rules.password">
+        <el-input type="name" v-model="dynamicValidateForm.password"></el-input>
       </el-form-item>
       <div class="login-btn">
-        <el-button type="primary" @click="submitForm('dynamicValidateForm')">登录</el-button>
-        <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
-        <el-button @click="handleRegister">注册</el-button>
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">Login in</el-button>
+        <el-button @click="resetForm('dynamicValidateForm')">Reset</el-button>
+        <el-button @click="handleRegister">Sign Up</el-button>
       </div>
     </el-form>
   </div>
 </template>
 
 <script>
-import Register from '../../views/user/Register'
+import Register from '@/views/user/sign-up'
 import { mapActions, mapState } from 'vuex'
 import { Message } from 'element-ui'
 export default {
@@ -62,7 +62,7 @@ export default {
 		...mapActions('user', ['userToken', 'userData']),
 		handleClick(tab, event) {},
 		handleRegister() {
-			this.$router.push('/user/register')
+			this.$router.push('/user/sign-up')
 		},
 		// reset
 		resetForm(formName) {
@@ -74,7 +74,7 @@ export default {
 				if (valid) {
 					let data = this.dynamicValidateForm
 					this.$api.user.getLogin(data).then(res => {
-						console.log('res', res) //TODO: for debug
+						console.log('res', res)
 						switch (res.code) {
 							case 2000:
 								Message({
@@ -83,12 +83,13 @@ export default {
 								})
 								this.userToken(res.token)
 								this.userData(res.data)
-								let redirect = decodeURIComponent(
-									this.$route.query.redirect || '/user/hello'
-								)
-								this.$router.push({
-									path: redirect
-								})
+								// let redirect = decodeURIComponent(
+								// 	this.$route.query.redirect || '/user/hello'
+								// )
+								// this.$router.push({
+								// 	path: redirect
+								// })
+								this.$router.push({ path: '/user/hello' })
 								break
 							case 4004:
 								Message({

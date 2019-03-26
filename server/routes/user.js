@@ -3,6 +3,7 @@ var router = express.Router()
 var model = require('../db/db')
 var sha1 = require('sha1')
 var moment = require('moment')
+var multer = require('multer')
 var objectIdToTimestamp = require('objectid-to-timestamp')
 var createToken = require('../middleware/createToken')
 var checkToken = require('../middleware/checkToken')
@@ -16,7 +17,8 @@ const Register = (req, res) => {
 		birth: req.body.birth,
 		recheck: req.body.recheck,
 		token: createToken(this.email), // sign
-		stock: req.body.stock
+		stock: req.body.stock,
+		avatar: req.body.avatar
 	})
 	userRegister.create_time = moment(
 		objectIdToTimestamp(userRegister._id)
@@ -27,23 +29,23 @@ const Register = (req, res) => {
 			email: userRegister.email.toLowerCase()
 		},
 		(err, doc) => {
-			if (err) console.log(err) //TODO:
+			if (err) console.log(err)
 			if (doc) {
 				//TODO:doc === null??
 				res.json({
-					message: '用户已经存在!不能重复注册'
+					message: 'Email Has Exited!'
 				})
 			} else {
 				userRegister.save(err => {
 					if (err) {
 						res.json({
 							success: false,
-							message: '注册失败'
+							message: 'Sign Up Failed'
 						})
 					}
 					res.json({
 						success: true,
-						message: '注册成功'
+						message: 'Sign Up Success'
 					})
 				})
 			}
@@ -88,6 +90,28 @@ const Login = (req, res) => {
 	})
 }
 
+// upload avatar
+var timepath = moment().format('YYYY-MM-DD')
+var destination = '/public/upload/' + timepath
+var filename = ''
+var storage = multer.diskStorage({
+	destination: '.' + destination,
+	filename: (req, file, cb) => {
+		timestamp = new Date().getTime()
+		filename = 'avatar-' + timestamp + '.' + file.originalname.split('.')[1]
+		cb(null, filename)
+	}
+})
+var upload = multer({ storage: storage })
+var cpUpload = upload.single('avatar')
+const uploadAvatar = (req, res) => {
+	console.log(req.file)
+	res.json({
+		code: 2000,
+		filename: '/static' + destination.slice(7) + '/' + filename
+	})
+}
+
 // print all user
 const User = (req, res) => {
 	model.User.findOne({ email: req.body.email }, (err, doc) => {
@@ -108,5 +132,6 @@ const User = (req, res) => {
 router.post('/register', Register)
 router.post('/login', Login)
 router.post('/hello', checkToken, User)
+router.post('/uploadAvatar', cpUpload, uploadAvatar)
 
 module.exports = router

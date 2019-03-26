@@ -17,8 +17,6 @@ let config = {
 let instance = axios.create(config)
 
 // Set up post/put default Content-Type
-instance.defaults.headers.post['Content-Type'] = 'application/json'
-instance.defaults.headers.put['Content-Type'] = 'application/json'
 
 // Add request interceptor
 instance.interceptors.request.use(
@@ -28,10 +26,6 @@ instance.interceptors.request.use(
 			config.headers.Authorization = `token ${window.localStorage.getItem(
 				'token'
 			)}`
-		}
-		if (config.method === 'post' || config.method === 'put') {
-			// Before post、put is sented，transform them(Object) to string, to handle java back-stage parsing issues
-			config.data = JSON.stringify(config.data)
 		}
 		// The request is processed before it is sent
 		return config
@@ -58,15 +52,8 @@ instance.interceptors.response.use(
 		return response.data
 	},
 	error => {
-		// console.log(error.response)
 		return Promise.reject(error)
 	}
 )
 
-// How to use?
-// functionName() --> return an instance of axios
-export default function() {
-	return instance
-}
-
-// export default instance
+export default instance

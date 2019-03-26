@@ -1,5 +1,4 @@
-import axios from '../axios'
-let service = axios()
+import service from '../axios'
 
 export default {
 	getLogin(data) {
@@ -19,6 +18,13 @@ export default {
 	getHello(data) {
 		return service({
 			url: '/api/user/hello',
+			method: 'post',
+			data: data
+		})
+	},
+	uploadAvatar(data) {
+		return service({
+			url: '/api/user/uploadAvatar',
 			method: 'post',
 			data: data
 		})

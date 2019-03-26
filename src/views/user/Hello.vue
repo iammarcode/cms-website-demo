@@ -1,12 +1,12 @@
 <template scope='scope'>
   <div class="hello">
     <div class="hello-info">
+      <img class="hello-avatar" :src="userData.avatar">
       <h3 class="hello-title">{{msgWelcome }} {{userData.name}}</h3>
       <h3 class="hello-stock">{{msgStock }}{{userData.stock}}</h3>
       <h3 class="hello-email">{{msgConcat }}{{userData.email}}</h3>
       <h3 class="hello-time">{{msgTime }}{{userData.create_time.slice(0, 10)}}</h3>
     </div>
-    <el-button type="primary" @click="logout()">登出</el-button>
   </div>
 </template>
 
@@ -17,10 +17,10 @@ export default {
 	name: 'hello',
 	data() {
 		return {
-			msgWelcome: '欢迎来到你的通海个人主页, ',
-			msgConcat: '联系方式：',
-			msgStock: '目前持股：',
-			msgTime: '账户创建时间：',
+			msgWelcome: 'Welcome to your homepage, ',
+			msgConcat: 'Concat：',
+			msgStock: 'Stock：',
+			msgTime: 'Create_Time：',
 			userData: ''
 		}
 	},
@@ -38,11 +38,11 @@ export default {
 				.getHello(data)
 				.then(result => {
 					if (result.code === 2000) {
-						Message({
-							type: 'success',
-							message: result.message,
-							duration: 1 * 1000
-						})
+						// Message({
+						// 	type: 'success',
+						// 	message: result.message,
+						// 	duration: 1 * 1000
+						// })
 					} else if (result.code === 4004) {
 						Message({
 							type: 'error',
@@ -54,21 +54,6 @@ export default {
 				.catch(err => {
 					console.log(err)
 				})
-		},
-		logout() {
-			this.userLogout()
-			if (!localStorage.getItem('token') && !localStorage.getItem('userData')) {
-				this.$router.push('/user/login')
-				Message({
-					type: 'success',
-					message: '登出成功'
-				})
-			} else {
-				Message({
-					type: '',
-					message: '登出失败'
-				})
-			}
 		}
 	},
 	mounted() {
@@ -81,22 +66,25 @@ export default {
 .hello {
 	margin-top: 100px;
 	min-height: 80vh;
-	.hello-info {
-		margin-bottom: 50vh;
-		display: flex;
-		flex-direction: column;
-		.hello-title {
-			padding: 20px 0;
-		}
-		.hello-stock {
-			padding: 20px 0;
-		}
-		.hello-concat {
-			padding: 20px 0;
-		}
-		.hello-time {
-			padding: 20px 0;
-		}
+	display: flex;
+	flex-direction: column;
+
+	.hello-avatar {
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+	}
+	.hello-title {
+		padding: 20px 0;
+	}
+	.hello-stock {
+		padding: 20px 0;
+	}
+	.hello-concat {
+		padding: 20px 0;
+	}
+	.hello-time {
+		padding: 20px 0;
 	}
 }
 </style>
