@@ -4,7 +4,7 @@
 Vue ----> foreground exhibit
 axios ----> fetch data
 Node(Express) -----> Rest API
-MongoDB(Mongoose) 
+MongoDB(Mongoose)
 ```
 
 ## Run Project
@@ -49,7 +49,7 @@ npm run serve   -------> foreground exhibit
      })
      ```
 
-![log in](./static/gif/Log in.gif)
+![log in](./static/gif/Login.gif)
 
 3. News
 
@@ -66,9 +66,7 @@ npm run serve   -------> foreground exhibit
 
 * Rich Text Editor is based on [Tinymce](https://www.tiny.cloud/get-tiny/custom-builds/)
 
-6.Some pages and features are not yet completed…
-
-
+  6.Some pages and features are not yet completed…
 
 ## what is next to do?
 
