@@ -87,4 +87,21 @@ router.get('/stock', function(req, res) {
 	})
 })
 
+router.get('/article', function(req, res) {
+	model.Article.find({}, (err, doc) => {
+		if (err) {
+			res.json({
+				status: 0,
+				message: err.message
+			})
+		} else {
+			res.json({
+				status: 1,
+				message: '',
+				data: doc
+			})
+		}
+	})
+})
+
 module.exports = router

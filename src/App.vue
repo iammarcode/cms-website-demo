@@ -2,7 +2,7 @@
   <div id="app">
     <Header class="app-header"/>
     <router-view class="app-content"/>
-    <Footer class="app-footer"/>
+    <!-- <Footer class="app-footer"/> -->
   </div>
 </template>
 
@@ -29,6 +29,7 @@ export default {
 	height: 100%;
 	position: relative;
 	box-sizing: border-box;
+	padding-top: @header_height;
 
 	.app-header {
 		height: @header_height;
@@ -42,9 +43,9 @@ export default {
 		box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
 	}
 	.app-content {
-		margin-top: 60px;
+		// margin-top: @header_height;
+		height: 1000px;
 		background-color: #fafafa;
-		min-height: calc(100% - @header_height - @footer_height);
 		box-sizing: border-box;
 	}
 	.app-footer {

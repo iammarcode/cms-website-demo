@@ -49,7 +49,7 @@ export default {
 		right: 35px;
 		.avatar-wrapper {
 			cursor: pointer;
-			margin-top: 15px;
+			margin-top: 10px;
 			position: relative;
 			line-height: initial;
 			.user-avatar {

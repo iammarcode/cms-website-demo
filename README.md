@@ -1,47 +1,83 @@
 # finance_web
 
 ```
-Technology Stack:
-Vue2.0: VueRouter + Vuex
-axios: Fetch data
-Node(Express): Rest Api
-MongoDB(Mongoose): Studio 3T visual tool
+Vue ----> foreground exhibit
+axios ----> fetch data
+Node(Express) -----> Rest API
+MongoDB(Mongoose) 
 ```
 
-```
-Development Mode: Separation of Front and Back
-```
-
-## Project setup
+## Run Project
 
 ```
 npm install
+npm run start  ------> server and database
+npm run serve   -------> foreground exhibit
 ```
 
-### Compiles and hot-reloads for development
+## Main function
 
-```
-npm run serve
-```
+1. Sign Up
 
-### Compiles and minifies for production
+   - JWT: Create token when register, and save it in database
+   - Upload Avatar: Save avatar's url in database and storage it in server's public folder `server/public/upload/YYYY-MM-DD/filename`
+   -
 
-```
-npm run build
-```
+![register](./static/gif/register.gif)
 
-### Run your tests
+2. Log in
 
-```
-npm run test
-```
+   - After log in success, save token in localstorage (official recommendations by JWT and the other project use cookie to save token：https://github.com/chowchunlok/finance_admin/tree/dev)
 
-### Lints and fixes files
+   - Check client's token every router changing in `/src/router.js`
 
-```
-npm run lint
-```
+     ```
+     router.beforeEach((to, from, next) => {
+     	let token = localStorage.getItem('token')
+     	if (to.meta.requireAuth) {  // Pages need permission
+     		if (token) {
+     			next()
+     		} else {
+     			next({
+     				path: '/user/login',
+     				query: { redirect: to.fullPath }
+     			})
+     		}
+     	} else {
+     		next()
+     	}
+     })
+     ```
 
-### Customize configuration
+![log in](./static/gif/Log in.gif)
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+3. News
+
+![news](./static/gif/news.gif)
+
+4. Stock Chart
+
+![Stock Chart](./static/gif/chart.gif)
+
+5. Article
+
+- Edit by Rich Text Editor, a backstage management web project: [finance_admin](https://github.com/chowchunlok/finance_admin/tree/dev)
+  ![Edit Article in background management](./static/gif/edit article.gif)
+
+* Rich Text Editor is based on [Tinymce](https://www.tiny.cloud/get-tiny/custom-builds/)
+
+6.Some pages and features are not yet completed…
+
+
+
+## what is next to do?
+
+SEO
+
+lang
+
+React Version
+
+Use ES7(async/await) in server
+
+…

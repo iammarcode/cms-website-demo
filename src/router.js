@@ -23,17 +23,17 @@ export const constantRouterMap = [
 		component: layout,
 		children: [
 			{
-				path: '/introduction',
+				path: 'introduction',
 				name: 'Introduction',
 				component: () => import('@/views/about/introduction')
 			},
 			{
-				path: '/category',
+				path: 'category',
 				name: 'Category',
 				component: () => import('@/views/about/category')
 			},
 			{
-				path: '/history',
+				path: 'history',
 				name: 'History',
 				component: () => import('@/views/about/history')
 			}
@@ -74,22 +74,22 @@ export const constantRouterMap = [
 		component: layout,
 		children: [
 			{
-				path: '/web-developer',
+				path: 'web-developer',
 				name: 'Web-Developer',
 				component: () => import('@/views/join-us/web-developer')
 			},
 			{
-				path: '/market',
+				path: 'market',
 				name: 'Market',
 				component: () => import('@/views/join-us/market')
 			},
 			{
-				path: '/accountant',
+				path: 'accountant',
 				name: 'Accountant',
 				component: () => import('@/views/join-us/accountant')
 			},
 			{
-				path: '/analyst',
+				path: 'analyst',
 				name: 'Analyst',
 				component: () => import('@/views/join-us/analyst')
 			}

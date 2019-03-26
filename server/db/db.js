@@ -6,6 +6,7 @@ var News = require('../models/News')
 var Footer = require('../models/Footer')
 var Stock = require('../models/Stock')
 var User = require('../models/User')
+var Article = require('../models/Article')
 
 // db config
 var options = { keepAlive: 120, useNewUrlParser: true, bufferCommands: false }
@@ -26,7 +27,8 @@ var model = {
 	News,
 	Footer,
 	Stock,
-	User
+	User,
+	Article
 }
 
 module.exports = model

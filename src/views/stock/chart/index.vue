@@ -296,7 +296,7 @@ export default {
 <style lang='less' scoped>
 .chart-container {
 	// border: 1px solid #000;
-	margin: 20px auto 10px auto;
+	// margin: 20px auto 10px auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

@@ -39,8 +39,7 @@ export default {
 	getArticle() {
 		return service({
 			url: '/api/intro/article',
-			method: 'get',
-			params: {}
+			method: 'get'
 		})
 	}
 }

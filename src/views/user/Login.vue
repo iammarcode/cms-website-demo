@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h3 class="login-title">Login in</h3>
+    <h3 class="login-title">Log in</h3>
     <el-form
       :model="dynamicValidateForm"
       label-width="100px"
@@ -14,7 +14,7 @@
         <el-input type="name" v-model="dynamicValidateForm.password"></el-input>
       </el-form-item>
       <div class="login-btn">
-        <el-button type="primary" @click="submitForm('dynamicValidateForm')">Login in</el-button>
+        <el-button type="primary" @click="submitForm('dynamicValidateForm')">Log in</el-button>
         <el-button @click="resetForm('dynamicValidateForm')">Reset</el-button>
         <el-button @click="handleRegister">Sign Up</el-button>
       </div>

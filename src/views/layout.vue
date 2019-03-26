@@ -20,7 +20,7 @@ export default {
 @import (reference) '../assets/css/constant.less';
 .layout {
 	.layout-view {
-		height: 100%;
+		height: 70vh;
 	}
 }
 </style>
