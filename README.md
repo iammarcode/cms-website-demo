@@ -54,7 +54,7 @@
 
 
 
-1. News
+3. News
 
 ![news](./static/gif/news.gif)
 
