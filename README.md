@@ -1,18 +1,33 @@
 # financial_web
 
-## Skill
-+ Front-end: Vue + Axios
-+ Back-end: Express provide RESTful API
-+ Database: Mongoose provide data
+> ### Introduction
+>
+> A fullstack project with JSON Web Token based on vue, node and mongodb.
+>
+> ### Skill
+>
+> Vue + Express + Mongoose
 
-## Run Project
-### run server
-+ cd server
-+ npm install
-+ run start
-### run front-end
-+ npm install
-+ run serve
+## Build Setup
+
+```bash
+# Clone project
+git clone git@github.com:chowchunlok/financial_management.git
+
+# Install server dependencies
+cd server
+npm install
+
+# Run server
+npm run start
+
+# Install front-end dependencies
+npm install
+
+# run front-end
+npm run serve
+
+```
 
 
 ## Main function
