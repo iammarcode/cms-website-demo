@@ -28,7 +28,7 @@
 
 2. Log in
 
-   - After login succesfully, token is saved in localstorage (it's background management project is saved in cookie：[https://github.com/chowchunlok/financial_management/tree/dev](financial_management))
+   - After login succesfully, token is saved in localstorage (it's background management project is saved in cookie：[financial_management](https://github.com/chowchunlok/financial_management))
 
    - Check client's token every time when user visit their homepage `/src/router.js`
 
@@ -54,7 +54,7 @@
 
 
 
-3. News
+1. News
 
 ![news](./static/gif/news.gif)
 
@@ -68,7 +68,7 @@
 
 5. Article
 
-- Edit by Rich Text Editor, a background management web project: [financial_management](https://github.com/chowchunlok/financial_management/tree/dev)
+- Edit by Rich Text Editor, a background management web project: [financial_management](https://github.com/chowchunlok/financial_management)
   ![Edit Article in background management](./static/gif/edit.gif)
 
 - Rich Text Editor is based on [Tinymce](https://www.tiny.cloud/get-tiny/custom-builds/)
