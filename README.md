@@ -19,8 +19,8 @@
 
 1. Sign Up
 
-   - JWT: Create token when register, and save it in mongodb. 
-   - Upload Avatar: Save avatar's url in mongodb and storage it in server's public folder: *server/public/upload/YYYY-MM-DD/filename*
++ JWT: Create token when register, and save it in mongodb. 
++ Upload Avatar: Save avatar's url in mongodb and storage it in server's public folder: *server/public/upload/YYYY-MM-DD/filename*
 
 ![register](./static/gif/register.gif)
 
@@ -28,27 +28,26 @@
 
 2. Log in
 
-   - After login succesfully, token is saved in localstorage (it's background management project is saved in cookie：[financial_management](https://github.com/chowchunlok/financial_management))
++ After login succesfully, token is saved in localstorage (it's background management project is saved in cookie：[financial_management](https://github.com/chowchunlok/financial_management))
 
-   - Check client's token every time when user visit their homepage `/src/router.js`
-
-     ```
-     router.beforeEach((to, from, next) => {
-     	let token = localStorage.getItem('token')
-     	if (to.meta.requireAuth) {  // Pages need permission
-     		if (token) {
-     			next()
-     		} else {
-     			next({
-     				path: '/user/login',
-     				query: { redirect: to.fullPath }
-     			})
-     		}
-     	} else {
-     		next()
-     	}
-     })
-     ```
++ Check client's token every time when user visit their homepage `/src/router.js`
+   ```
+   router.beforeEach((to, from, next) => {
+   	let token = localStorage.getItem('token')
+   	if (to.meta.requireAuth) {  // Pages need permission
+   		if (token) {
+   			next()
+   		} else {
+   			next({
+   				path: '/user/login',
+   				query: { redirect: to.fullPath }
+   			})
+   		}
+   	} else {
+   		next()
+   	}
+   })
+   ```
 
 ![log in](./static/gif/Login.gif)
 
