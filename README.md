@@ -68,7 +68,7 @@
 
 5. Article
 
-- Edit by Rich Text Editor, a background management web project: [finance_admin](https://github.com/chowchunlok/finance_admin/tree/dev)
+- Edit by Rich Text Editor, a background management web project: [financial_management](https://github.com/chowchunlok/financial_management/tree/dev)
   ![Edit Article in background management](./static/gif/edit.gif)
 
 - Rich Text Editor is based on [Tinymce](https://www.tiny.cloud/get-tiny/custom-builds/)
