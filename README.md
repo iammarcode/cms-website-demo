@@ -46,29 +46,29 @@ npm run serve
 + After login succesfully, token is saved in localstorage (it's background management project is saved in cookie：[financial_management](https://github.com/chowchunlok/financial_management))
 
 + Check client's token every time when user visit their homepage `/src/router.js`
-   ```
-   router.beforeEach((to, from, next) => {
-   	let token = localStorage.getItem('token')
-   	if (to.meta.requireAuth) {  // Pages need permission
-   		if (token) {
-   			next()
-   		} else {
-   			next({
-   				path: '/user/login',
-   				query: { redirect: to.fullPath }
-   			})
-   		}
-   	} else {
-   		next()
-   	}
-   })
-   ```
+```
+router.beforeEach((to, from, next) => {
+let token = localStorage.getItem('token')
+if (to.meta.requireAuth) {  // Pages need permission
+	if (token) {
+		next()
+	} else {
+		next({
+			path: '/user/login',
+			query: { redirect: to.fullPath }
+		})
+	}
+} else {
+	next()
+}
+})
+```
 
 ![log in](./static/gif/Login.gif)
 
 
 
-3. News
+1. News
 
 ![news](./static/gif/news.gif)
 
