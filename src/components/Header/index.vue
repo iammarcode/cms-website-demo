@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import Menu from '../Public/Menu'
-import Input from '../Public/Input'
-import Concat from '../Public/Concat'
+import Menu from '../public/Menu'
+import Input from '../public/Input'
+import Concat from '../public/Concat'
 import LoginButton from '../../components/Button'
 import { mapState, mapMutations } from 'vuex'
 

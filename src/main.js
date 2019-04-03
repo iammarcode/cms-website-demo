@@ -35,12 +35,12 @@ Object.defineProperty(Vue.prototype, '$api', {
 import store from './store/index'
 window.store = store
 
-new Vue({
-	el: '#app',
-	router,
-	store,
-	render: h => h(App)
-})
+// new Vue({
+// 	el: '#app',
+// 	router,
+// 	store,
+// 	render: h => h(App)
+// })
 
 Vue.config.productionTip = false
 
